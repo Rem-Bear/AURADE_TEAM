@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title> AURADE | HOME </title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0a0c12;
+      font-family: 'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #eef2ff;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    /* ===== ХЕДЕР С МЕНЮ ===== */
+    .site-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.5rem 2rem;
+      background: transparent;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #eef2ff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #ff4d6d;
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .burger span {
+      width: 25px;
+      height: 3px;
+      background: #eef2ff;
+      transition: 0.3s;
+      border-radius: 3px;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      background: rgba(10, 12, 18, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 200;
+      transition: 0.3s;
+      padding: 5rem 2rem;
+      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .mobile-menu a {
+      color: #eef2ff;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu a.active {
+      color: #ff4d6d;
+    }
+
+    .close-menu {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #eef2ff;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px);
+      z-index: 150;
+      display: none;
+    }
+
+    .menu-overlay.active {
+      display: block;
+    }
+
+    /* Hero-секция */
+    .hero {
+      position: relative;
+      min-height: 65vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 6rem 2rem 5rem;
+      overflow: hidden;
+    }
+
+    .hero-parallax-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 120%;
+      background-image: url('https://iili.io/BILZQOF.png');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+      z-index: 0;
+      transform: translateY(0);
+      will-change: transform;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 1000px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 4.8rem);
+      background: linear-gradient(135deg, #FFFFFF, #9aa9ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span {
+      background: none;
+      color: #ff4d6d;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: #ffffff;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    /* БЕЛАЯ РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ */
+    .hero-divider {
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ffffff, #ff4d6d, #ffffff, transparent);
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Главная секция с информацией */
+    .home-section {
+      padding: 5rem 2rem;
+      background: #0a0c12;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .info-card {
+      background: rgba(18, 22, 35, 0.8);
+      backdrop-filter: blur(4px);
+      border-radius: 2rem;
+      padding: 2rem;
+      transition: all 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .info-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 77, 109, 0.4);
+      box-shadow: 0 25px 40px -12px #ff4d6d20;
+    }
+
+    .info-icon {
+      font-size: 2.5rem;
+      color: #ff4d6d;
+      margin-bottom: 1rem;
+    }
+
+    .info-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #ff4d6d;
+    }
+
+    .info-card h3 {
+      font-size: 1.2rem;
+      margin: 1rem 0 0.5rem;
+      color: #eef2ff;
+    }
+
+    .info-card p {
+      color: #b9c3e6;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .info-list li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.5rem;
+      position: relative;
+      color: #b9c3e6;
+    }
+
+    .info-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: #ff4d6d;
+    }
+
+    .order-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 1rem;
+      transition: 0.2s;
+    }
+
+    .step:hover {
+      background: rgba(255, 77, 109, 0.1);
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: #ff4d6d;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #0a0c12;
+    }
+
+    .step-text {
+      flex: 1;
+    }
+
+    .step-text strong {
+      color: #ff4d6d;
+    }
+
+    .step-text p {
+      margin: 0;
+      font-size: 0.85rem;
+    }
+
+    .footer {
+      background: #05070c;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.85rem;
+      color: #7f8c9a;
+    }
+
+    .social-footer {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-footer a {
+      color: #b9c3e6;
+      font-size: 1.6rem;
+      transition: 0.2s;
+    }
+
+    .social-footer a:hover {
+      color: #ff4d6d;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .burger {
+        display: flex;
+      }
+      .hero {
+        padding: 5rem 1rem 4rem;
+      }
+      .home-section {
+        padding: 3rem 1rem;
+      }
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .info-card {
+        padding: 1.5rem;
+      }
+      .step {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+
+<!-- ХЕДЕР С МЕНЮ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <a href="home.html">
+        <img src="" alt="" style="height: 50px; border-radius: 10px;">
+      </a>
+    </div>
+    <nav class="nav-links">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="burger" id="burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</header>
+
+<!-- Мобильное меню с размытием -->
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="close-menu" id="closeMenu">&times;</div>
+  <ul>
+    <li><a href="home.html" class="active">Home</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- HERO С ПАРАЛЛАКС ФОНОМ -->
+<section class="hero">
+  <div class="hero-parallax-bg" id="parallaxBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>AURADE <span>✦</span> STUDIO</h1>
+    <p>WE CREATE ANIMATIONS AND OTHER WORKS IN 3D AND 2D</p>
+    <div style="margin-top: 2rem;">
+      <span style="background:#ff4d6d20; backdrop-filter: blur(4px); padding:0.4rem 1.2rem; border-radius:40px; font-size:0.8rem;">HOME</span>
+    </div>
+  </div>
+</section>
+
+<!-- БЕЛАЯ РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ -->
+<div class="hero-divider"></div>
+
+<!-- ГЛАВНАЯ СЕКЦИЯ С ИНФОРМАЦИЕЙ -->
+<section class="home-section">
+  <div class="container">
+    <div class="info-grid">
+      
+      <!-- КАРТОЧКА 1: STUDIO INFO -->
+      <div class="info-card">
+        <div class="info-icon">
+          <i class="fas fa-cube"></i>
+        </div>
+        <h2>Studio Info</h2>
+        <p>AURADE is a young and ambitious 3D animation and visual effects studio. We specialize in high-quality animation, 3D modeling, and post-production.</p>
+        
+        <h3><i class="fas fa-users"></i>information about employees</h3>
+        <ul class="info-list">
+          <li>Good 3D Animators, Artists and Editors</li>
+          <li>We have considerable experience in creating animations/models/music/2D art.</li>
+          <li>using a dual animation method (simultaneously using SFM and BLENDER 3D)</li>
+        </ul>
+
+        <h3><i class="fas fa-clock"></i>Setting a deadline</h3>
+        <ul class="info-list">
+          <li>The deadline is determined by the complexity and length of the animations.</li>
+          <li>The deadline may be delayed since we are beginners.</li>
+          <li>The deadline also depends on the workload of our guys.</li>
+        </ul>
+
+        <h3><i class="fas fa-globe"></i>information about communication</h3>
+        <ul class="info-list">
+          <li>Email: <a href="mailto:Sbezon0@gmail.com" style="color:#ff4d6d;">Sbezon0@gmail.com</a></li>
+          <li>We can also switch to other social networks (Telegram/Discord)</li>
+        </ul>
+      </div>
+
+      <!-- КАРТОЧКА 2: INFO ABOUT THE ORDER -->
+      <div class="info-card">
+        <div class="info-icon">
+          <i class="fas fa-clipboard-list"></i>
+        </div>
+        <h2>Info About The Order</h2>
+        <p>Would you like to purchase 3D animation from us?</p>
+
+        <div class="order-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-text">
+              <strong>Application</strong>
+              <p>Send us an email with a request for animation, specify the duration, the price you are willing to pay, which models will be used, and we will then respond to you.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-text">
+              <strong>Consultation</strong>
+              <p>If we accept your application, we will contact you through third-party networks (Telegram or Discord) and discuss all the details.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-text">
+              <strong>Getting Started</strong>
+              <p>We confirm the agreements, you make an advance payment (it is negotiable) and we begin work.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-text">
+              <strong>Process</strong>
+              <p>Animation, rendering, post-production – you get intermediate results</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">5</div>
+            <div class="step-text">
+              <strong>Final render</strong>
+              <p>Delivery of the finished project in the required format and quality</p>
+            </div>
+          </div>
+        </div>
+
+        <h3><i class="fas fa-tag"></i> Payment methods</h3>
+        <ul class="info-list">
+          <li>We accept any valute</li>
+          <li>Payment is made via Boosty/donation alerts/bank transfer (depending on the currency you pay in)</li>
+        </ul>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="social-footer">
+
+  </div>
+  <p>© 2026 AURADE — digital art studio..</p>
+  <p style="margin-top:0.8rem; font-size:0.7rem;"></p>
+</footer>
+
+<script>
+  // ПАРАЛЛАКС ЭФФЕКТ
+  const parallaxBg = document.getElementById('parallaxBg');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const translateY = scrolled * 0.3;
+    if (parallaxBg) parallaxBg.style.transform = `translateY(${translateY}px)`;
+  });
+
+  // МЕНЮ (бургер + размытие фона)
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const closeMenu = document.getElementById('closeMenu');
+
+  function openMenu() {
+    mobileMenu.classList.add('active');
+    menuOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenuFunc() {
+    mobileMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  burger.addEventListener('click', openMenu);
+  closeMenu.addEventListener('click', closeMenuFunc);
+  menuOverlay.addEventListener('click', closeMenuFunc);
+</script>
+
+</body>
+</html>

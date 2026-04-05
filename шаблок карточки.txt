@@ -1,0 +1,9 @@
+<div class="work-card">
+  <img class="work-image" src="ССЫЛКА_НА_ИЗОБРАЖЕНИЕ" alt="НАЗВАНИЕ_ПРОЕКТА">
+  <div class="work-info">
+    <div class="work-title">НАЗВАНИЕ ПРОЕКТА</div>
+    <div class="work-year">ГОД ИЛИ "Coming Soon"</div>
+    <div class="work-client">КЛИЕНТ ИЛИ "—"</div>
+    <a href="ССЫЛКА_НА_СТРАНИЦУ_ПРОЕКТА" class="work-link">Learn more →</a>
+  </div>
+</div>

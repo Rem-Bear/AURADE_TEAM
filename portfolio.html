@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title> AURADE | PORTFOLIO </title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0a0c12;
+      font-family: 'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #eef2ff;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    /* ===== ХЕДЕР С МЕНЮ ===== */
+    .site-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.5rem 2rem;
+      background: transparent;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #eef2ff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #ff4d6d;
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .burger span {
+      width: 25px;
+      height: 3px;
+      background: #eef2ff;
+      transition: 0.3s;
+      border-radius: 3px;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100vh;
+      background: rgba(10, 12, 18, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 200;
+      transition: 0.3s;
+      padding: 5rem 2rem;
+      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .mobile-menu a {
+      color: #eef2ff;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu a.active {
+      color: #ff4d6d;
+    }
+
+    .close-menu {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #eef2ff;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px);
+      z-index: 150;
+      display: none;
+    }
+
+    .menu-overlay.active {
+      display: block;
+    }
+
+    /* Hero-секция */
+    .hero {
+      position: relative;
+      min-height: 55vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 6rem 2rem 5rem;
+      overflow: hidden;
+    }
+
+    .hero-parallax-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 120%;
+      background-image: url('https://iili.io/BTKq87t.png');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+      z-index: 0;
+      transform: translateY(0);
+      will-change: transform;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 1000px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 4.8rem);
+      background: linear-gradient(135deg, #FFFFFF, #9aa9ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span {
+      background: none;
+      color: #ff4d6d;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: #ffffff;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    /* БЕЛАЯ РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ */
+    .hero-divider {
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ffffff, #ff4d6d, #ffffff, transparent);
+      position: relative;
+      z-index: 5;
+    }
+
+    .portfolio-section {
+      padding: 5rem 2rem;
+      background: #0a0c12;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .portfolio-nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .portfolio-nav a {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(4px);
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      color: #eef2ff;
+      font-weight: 600;
+      transition: 0.2s;
+      border: 1px solid rgba(255, 77, 109, 0.3);
+    }
+
+    .portfolio-nav a:hover {
+      background: #ff4d6d;
+      color: #0a0c12;
+      border-color: #ff4d6d;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .work-card {
+      background: rgba(18, 22, 35, 0.8);
+      backdrop-filter: blur(4px);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .work-card:hover {
+      transform: translateY(-6px);
+      border-color: #ff4d6d;
+      box-shadow: 0 25px 40px -12px #ff4d6d40;
+    }
+
+    .work-image {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+    }
+
+    .work-info {
+      padding: 1.5rem;
+    }
+
+    .work-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .work-year {
+      font-size: 0.8rem;
+      color: #ff4d6d;
+      margin-bottom: 0.5rem;
+    }
+
+    .work-client {
+      font-size: 0.8rem;
+      color: #b9c3e6;
+    }
+
+    .work-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #ff4d6d;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #ff4d6d;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 3rem 0 1.5rem;
+      color: #eef2ff;
+    }
+
+    hr {
+      border-color: rgba(255, 77, 109, 0.3);
+      margin: 2rem 0;
+    }
+
+    .footer {
+      background: #05070c;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.85rem;
+      color: #7f8c9a;
+    }
+
+    .social-footer {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-footer a {
+      color: #b9c3e6;
+      font-size: 1.6rem;
+      transition: 0.2s;
+    }
+
+    .social-footer a:hover {
+      color: #ff4d6d;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .burger {
+        display: flex;
+      }
+      .hero {
+        padding: 5rem 1rem 4rem;
+      }
+      .portfolio-section {
+        padding: 3rem 1rem;
+      }
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <a href="index.html">
+        <img src="" alt="" style="height: 50px; border-radius: 10px;">
+      </a>
+    </div>
+    <nav class="nav-links">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="burger" id="burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</header>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="close-menu" id="closeMenu">&times;</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html">Team</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<section class="hero">
+  <div class="hero-parallax-bg" id="parallaxBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>AURADE <span>✦</span> PORTFOLIO</h1>
+    <p>OUR PROJECTS AND WORKS IN 3D AND 2D</p>
+    <div style="margin-top: 2rem;">
+      <span style="background:#ff4d6d20; backdrop-filter: blur(4px); padding:0.4rem 1.2rem; border-radius:40px; font-size:0.8rem;">PORTFOLIO</span>
+    </div>
+  </div>
+</section>
+
+<!-- БЕЛАЯ РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ -->
+<div class="hero-divider"></div>
+
+<section class="portfolio-section">
+  <div class="container">
+    <div class="portfolio-nav">
+      <a href="#ourwork">OUR WORK</a>
+      <a href="#inproduction">IN PRODUCTION</a>
+    </div>
+
+    <!-- ===== OUR WORK (ГОТОВЫЕ ПРОЕКТЫ) ===== -->
+    <h2 class="section-title" id="ourwork">&gt;OUR WORK&lt;</h2>
+    <div class="work-grid" id="ourworkGrid">
+      
+      <!-- КАРТОЧКА 1 -->
+      <div class="work-card">
+        <img class="work-image" src="https://iili.io/BTwzrI2.png" alt="SHUT YOUR MOUTH">
+        <div class="work-info">
+          <div class="work-title">SHUT YOUR MOUTH</div>
+          <div class="work-year">2026</div>
+          <div class="work-client">MINI COLLAB</div>
+          <a href="Shut Your Mouth.html" class="work-link">Learn more →</a>
+        </div>
+      </div>
+      
+    </div>
+
+    <hr>
+
+    <!-- ===== IN PRODUCTION (ПРОЕКТЫ В РАЗРАБОТКЕ) ===== -->
+    <h2 class="section-subtitle" id="inproduction">&gt;IN <u>PRODUCTION</u>&lt;</h2>
+    <div class="work-grid" id="inproductionGrid">
+      
+      <!-- КАРТОЧКА 2 -->
+      <div class="work-card">
+        <img class="work-image" src="https://iili.io/BTDZoEQ.png" alt="MANGLED">
+        <div class="work-info">
+          <div class="work-title">MANGLED</div>
+          <div class="work-year">Coming Soon</div>
+          <div class="work-client">Full Animation</div>
+          <a href="mangled FULL.html" class="work-link">Learn more →</a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+   <div class="social-footer">
+
+  </div>
+  <p>© 2026 AURADE — digital art studio..</p>
+  <p style="margin-top:0.8rem; font-size:0.7rem;"></p>
+</footer>
+
+<script>
+  const parallaxBg = document.getElementById('parallaxBg');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const translateY = scrolled * 0.3;
+    if (parallaxBg) parallaxBg.style.transform = `translateY(${translateY}px)`;
+  });
+
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const closeMenu = document.getElementById('closeMenu');
+
+  function openMenu() {
+    mobileMenu.classList.add('active');
+    menuOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenuFunc() {
+    mobileMenu.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  burger.addEventListener('click', openMenu);
+  closeMenu.addEventListener('click', closeMenuFunc);
+  menuOverlay.addEventListener('click', closeMenuFunc);
+</script>
+
+</body>
+</html>
