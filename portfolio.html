@@ -274,6 +274,10 @@
       border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
+    .work-card {
+       cursor: pointer;
+    }
+
     .work-card:hover {
       transform: translateY(-6px);
       border-color: #ff4d6d;
@@ -442,16 +446,6 @@
     <h2 class="section-title" id="ourwork">&gt;OUR WORK&lt;</h2>
     <div class="work-grid" id="ourworkGrid">
       
-      <!-- КАРТОЧКА 1 -->
-      <div class="work-card">
-        <img class="work-image" src="https://iili.io/BTwzrI2.png" alt="SHUT YOUR MOUTH">
-        <div class="work-info">
-          <div class="work-title">SHUT YOUR MOUTH</div>
-          <div class="work-year">2026</div>
-          <div class="work-client">MINI COLLAB</div>
-          <a href="Shut Your Mouth.html" class="work-link">Learn more →</a>
-        </div>
-      </div>
       
     </div>
 
@@ -523,6 +517,17 @@
   burger.addEventListener('click', openMenu);
   closeMenu.addEventListener('click', closeMenuFunc);
   menuOverlay.addEventListener('click', closeMenuFunc);
+
+
+  // Переход по нажатию на всю карточку
+  document.querySelectorAll('.work-card').forEach(card => {
+    card.addEventListener('click', function(e) {
+      if (e.target.closest('a')) return;
+      const link = this.querySelector('.work-link');
+      if (link) window.location.href = link.href;
+    });
+  });
+
 </script>
 
 </body>
