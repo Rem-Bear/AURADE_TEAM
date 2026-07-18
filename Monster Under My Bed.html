@@ -496,6 +496,25 @@
         right: 15px;
       }
     }
+  
+    .coming-soon {
+      min-height: 55vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .coming-soon h2 {
+      font-size: clamp(3rem, 10vw, 8rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #ffffff;
+      text-shadow: 0 0 25px rgba(255,77,109,0.35);
+      text-transform: uppercase;
+    }
+
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
@@ -550,49 +569,10 @@
 
 <!-- ОСНОВНОЙ КОНТЕНТ -->
 <div class="case-content">
-  <!-- ДВЕ КОЛОНКИ: ОПИСАНИЕ + КРЕДИТЫ -->
-  <div class="two-columns">
-    <div class="description">
-      <h2>About the project</h2>
-      <p>Coming soon. A new AURADE project currently in production.</p>
-      <p></p>
-    </div>
-    <div class="credits">
-      <h2>Credits</h2>
-      <ul class="credits-list">
-        <li><strong>Client:</strong>???</li>
-        <li><strong>Release:</strong> ???, 2026 </li>
-        <li><strong>BON(AURADE):</strong> Animator,Video Editor</li>
-        <li><strong>ShyRinX (AURADE):</strong> Director, Producer, Rendering, Animator</li>
-        <li><strong>VredBear(AURADE):</strong> Animator, Rendering </li>
-        <li><strong>ColorBon(AURADE):</strong> Animator, Storyboard</li>
-        <li><strong>FunAnim (AURADE):</strong> Animation, Storyboard</li>
-        <li><strong>Cvibell (AURADE):</strong> Animator</li>
-        <li><strong>FuntimePurpleddy (AURADE):</strong> Producer, Animation</li>
-        <li><strong>InfinityTime (AURADE):</strong> Producer, Animation</li>
-      </ul>
-    </div>
-  </div>
+  <section class="coming-soon">
+    <h2>COMING SOON</h2>
+  </section>
 
-  <!-- ВИДЕО (YouTube) -->
-  <div class="video-container">
-    <iframe src=" " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Monster Under My Bed - Soon"></iframe>
-  </div>
-
-  <!-- ГАЛЕРЕЯ КАДРОВ С ЛАЙТБОКСОМ -->
-  <div class="gallery-section">
-    <h2>Gallery</h2>
-    <div class="gallery-grid" id="galleryGrid">
-      <img src="https://iili.io/BTq2aZx.webp" alt="Monster Under My Bed Frame">
-      <img src="https://iili.io/BTq2aZx.webp" alt="Monster Under My Bed Frame">
-      <img src="https://iili.io/BTq2aZx.webp" alt="Monster Under My Bed Frame">
-      <img src="https://iili.io/BTq2aZx.webp" alt="Monster Under My Bed Frame">
-      <img src="https://iili.io/BTq2aZx.webp" alt="Monster Under My Bed Frame">
-      <img src="https://iili.io/BTq2aZx.webp" alt="Monster Under My Bed Frame">
-    </div>
-  </div>
-
-  <!-- КНОПКА НАЗАД -->
   <a href="portfolio.html" class="back-link">← Back to Portfolio</a>
 </div>
 
