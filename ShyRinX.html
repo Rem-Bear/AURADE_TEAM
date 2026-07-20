@@ -4,9 +4,9 @@
   <link rel="icon" type="image/png" href="https://iili.io/Bu9qAdB.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title> AURADE | HOME </title>
+  <title> AURADE | SHYRINX — About </title>
 
-  <!-- Новые премиальные sci-fi шрифты -->
+  <!-- Премиальные sci-fi шрифты из первого кода -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syncopate:wght@400;700&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet">
@@ -60,12 +60,12 @@
     }
 
     @media (min-width: 769px) {
-      body, a, button, .info-card, .step, .hero-title-interactive {
+      body, a, button, .profile-avatar, .gallery-item, .project-item, .back-link {
         cursor: none !important;
       }
     }
 
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
       font-family: 'Syncopate', sans-serif;
       letter-spacing: 0.2em;
     }
@@ -196,7 +196,7 @@
       100% { transform: translate(-50%, -50%) scale(1.7); opacity: 0; }
     }
 
-    /* ===== PREMIUM NAVIGATION WITH FOCUS EFFECT ===== */
+    /* ===== PREMIUM NAVIGATION WITH FOCUS EFFECT (РОВНО КАК В ПЕРВОМ КОДЕ) ===== */
     .site-header {
       position: fixed;
       top: 20px;
@@ -252,13 +252,13 @@
       letter-spacing: .15em;
       text-decoration: none;
       transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
+      text-transform: uppercase;
     }
     
-    /* Эффект сужающейся концентрации на ссылках */
     .nav-links a::before {
       content: "";
       position: absolute;
-      inset: -3px; /* Начинает снаружи */
+      inset: -3px;
       border-radius: 999px;
       border: 1px solid transparent;
       background: linear-gradient(135deg, rgba(255,77,109,.2), rgba(120,140,255,.1)) padding-box;
@@ -269,13 +269,13 @@
     .nav-links a:hover,
     .nav-links a.active {
       color: #ffffff;
-      letter-spacing: 0.12em; /* Буквы слегка концентрируются ближе */
+      letter-spacing: 0.12em;
       text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
     }
     .nav-links a:hover::before,
     .nav-links a.active::before {
       opacity: 1;
-      inset: 0; /* Обводка плавно притягивается и фиксируется на кнопке */
+      inset: 0;
       border: 1px solid rgba(255, 77, 109, 0.4);
     }
 
@@ -302,31 +302,33 @@
     .burger.active span:nth-child(2) { opacity: 0; }
     .burger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    /* ===== HERO SECTION ===== */
-    .hero {
+    /* ===== PROFILE HERO ===== */
+    .profile-hero {
       position: relative;
-      min-height: 85vh;
+      min-height: 75vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 120px 20px 80px;
+      padding: 140px 20px 80px;
       overflow: hidden;
     }
-    .hero-parallax-bg {
+
+    .profile-bg {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 130%;
-      background-image: url('https://iili.io/CjPenqu.png');
+      background-image: url('https://iili.io/CGCXtff.png');
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
       z-index: 0;
       will-change: transform;
-      filter: saturate(1.1) contrast(1.05);
+      filter: saturate(1.1) contrast(1.05) brightness(0.7);
     }
-    .hero-overlay {
+
+    .profile-overlay {
       position: absolute;
       top: 0;
       left: 0;
@@ -337,27 +339,46 @@
         radial-gradient(circle at center, transparent 20%, rgba(7,9,16,.6) 100%);
       z-index: 2;
     }
-    .hero-content {
+
+    .profile-content {
       position: relative;
       z-index: 3;
       text-align: center;
       width: 100%;
       max-width: 1100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
+    .profile-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ff4d6d;
+      box-shadow: 0 0 30px rgba(255,77,109,0.3);
+      margin-bottom: 2rem;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .profile-avatar:hover {
+      transform: scale(1.08);
+    }
+
+    /* Интерактивный заголовок из первого кода */
     .hero-title-interactive {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
-      font-size: clamp(2.4rem, 7.5vw, 5.2rem);
+      font-size: clamp(2.4rem, 7.5vw, 4.8rem);
       line-height: 1.1;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 800;
       letter-spacing: 0.15em;
       color: transparent;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       text-transform: uppercase;
       transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
@@ -396,19 +417,8 @@
       opacity: 0.9;
       transform: translate(5px, 4px);
     }
-    .hero-title-interactive:hover .aura-symbol { transform: scale(1.15); }
 
-    .hero p {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: clamp(0.85rem, 1.8vw, 1.05rem);
-      font-weight: 400;
-      letter-spacing: .25em;
-      color: #a0aec0;
-      max-width: 850px;
-      margin: 0 auto 2.5rem;
-      text-shadow: 0 0 5px rgba(160, 174, 192, 0.2);
-    }
-    .hero-tag {
+    .profile-role-tag {
       display: inline-block;
       font-family: 'Syncopate', sans-serif;
       background: rgba(255, 77, 109, 0.1);
@@ -432,224 +442,350 @@
       z-index: 5;
     }
 
-    /* ===== HOME SECTION ===== */
-    .home-section {
+    /* ===== ABOUT CONTENT ===== */
+    .about-section {
       padding: 6rem 2rem;
-      background: #070910;
-      position: relative;
-    }
-    .container {
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 0 auto;
-    }
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2.5rem;
-    }
-
-    /* ===== CARDS WITH INSET COMPRESSION EFFECT ===== */
-    .info-card {
       position: relative;
-      background: linear-gradient(145deg, rgba(15,19,32,.7), rgba(10,12,18,.9));
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 24px;
-      padding: 2.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      overflow: hidden;
-      transition: transform 0.4rem cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
     }
 
-    /* Эффект сужающегося сканера обводки */
-    .info-card::after {
-      content: "";
-      position: absolute;
-      inset: -15px; /* Изначально обводка шире самой карточки */
-      border: 1px solid rgba(255, 77, 109, 0);
-      border-radius: 24px;
-      pointer-events: none;
-      transition: inset 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
-      z-index: 1;
-    }
-
-    .info-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255, 77, 109, 0.06), transparent 80%);
-      z-index: 1;
-      pointer-events: none;
-    }
-    .info-card > * {
-      position: relative;
-      z-index: 2;
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Активация эффекта притягивания фокуса */
-    .info-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 77, 109, 0.15);
-      box-shadow: 0 20px 45px rgba(255, 77, 109, 0.05);
-    }
-    .info-card:hover::after {
-      inset: 8px; /* Обводка "сжимается" внутрь карточки, концентрируя взгляд */
-      border-color: rgba(255, 77, 109, 0.3);
-      box-shadow: inset 0 0 15px rgba(255, 77, 109, 0.08);
-    }
-    .info-card:hover > * {
-      transform: scale(0.99); /* Текст слегка уходит вглубь для 3D глубины */
-    }
-
-    .info-icon {
-      font-size: 1.8rem;
-      color: #ff4d6d;
-      margin-bottom: 1.5rem;
-      background: rgba(255, 77, 109, 0.08);
-      width: 54px;
-      height: 54px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 77, 109, 0.2);
-    }
-
-    .info-card h2 {
-      font-size: 1.4rem;
+    .about-section h2 {
+      font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+      color: #ffffff;
+      margin: 3rem 0 1.2rem;
+      font-family: 'Syncopate', sans-serif;
       font-weight: 700;
-      margin-bottom: 1.8rem;
-      background: linear-gradient(180deg, #ffffff 40%, #a0aec0 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
       border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding-bottom: 1rem;
+      padding-bottom: 0.8rem;
       text-shadow: 0 2px 10px rgba(255,255,255,0.05);
-    }
-    .info-card h3 {
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      margin: 2.2rem 0 1.2rem;
-      color: #ff4d6d;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.8rem;
+    }
+    .about-section h2::before {
+      content: "//";
+      color: #ff4d6d;
+    }
+
+    .about-section h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .about-section h3 {
+      font-size: 1rem;
+      color: #ff4d6d;
+      margin: 2rem 0 1rem;
+      font-family: 'Syncopate', sans-serif;
+      letter-spacing: 0.15em;
       text-shadow: 0 0 8px rgba(255, 77, 109, 0.3);
     }
-    .info-card h3 i {
-      font-size: 0.8rem;
-    }
 
-    .info-card p {
+    .about-section p {
       font-family: 'Share Tech Mono', monospace;
       color: #b0c4de;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       letter-spacing: 0.07em;
-      line-height: 1.7;
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
       opacity: 0.85;
     }
 
-    .info-list {
+    .about-section ul {
       list-style: none;
+      margin: 1rem 0;
     }
-    .info-list li {
+
+    .about-section ul li {
       font-family: 'Share Tech Mono', monospace;
       margin-bottom: 1rem;
       padding-left: 1.8rem;
       position: relative;
       color: #a0aec0;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       letter-spacing: 0.06em;
       line-height: 1.6;
     }
-    .info-list li::before {
+
+    .about-section ul li::before {
       content: "//";
       position: absolute;
       left: 0;
       color: #ff4d6d;
       font-weight: bold;
     }
-    .info-list a {
+
+    .skill-tag {
+      display: inline-block;
       font-family: 'Share Tech Mono', monospace;
-      color: #ffffff;
-      text-decoration: none;
-      border-bottom: 1px dashed #ff4d6d;
-      padding-bottom: 1px;
-      transition: all 0.2s ease;
-      letter-spacing: 0.08em;
-    }
-    .info-list a:hover {
+      background: rgba(255, 77, 109, 0.08);
+      border: 1px solid rgba(255, 77, 109, 0.2);
+      border-radius: 12px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
       color: #ff4d6d;
-      border-bottom-style: solid;
-      text-shadow: 0 0 5px rgba(255,77,109,0.5);
+      margin: 0.3rem;
+      letter-spacing: 0.08em;
+      transition: all 0.3s ease;
+    }
+    .skill-tag:hover {
+      background: rgba(255, 77, 109, 0.2);
+      border-color: #ff4d6d;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(255, 77, 109, 0.3);
+      transform: translateY(-2px);
     }
 
-    /* ===== STEP HIGHLIGHT FOCUS ===== */
-    .order-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
+    /* ===== PERSONAL PORTFOLIO GALLERY ===== */
+    .portfolio-gallery {
+      margin: 2.5rem 0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
       margin-top: 1.5rem;
     }
-    .step {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      padding: 1.2rem;
-      background: rgba(255, 255, 255, 0.01);
+
+    .gallery-item {
+      position: relative;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.02);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .step:hover {
-      background: rgba(255, 77, 109, 0.04);
-      border-color: rgba(255, 77, 109, 0.25);
-      transform: scale(1.01);
-    }
-    .step-number {
-      font-family: 'Syncopate', sans-serif;
-      width: 36px;
-      height: 36px;
-      background: transparent;
-      border: 1px solid rgba(255, 77, 109, 0.4);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.75rem;
-      color: #ff4d6d;
-      flex-shrink: 0;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 0 10px rgba(255,77,109,.1);
-    }
-    
-    /* Концентрация кольца при наведении на шаг */
-    .step:hover .step-number {
-      border-color: #ff4d6d;
-      background: #ff4d6d;
-      color: #070910;
-      box-shadow: 0 0 20px rgba(255,77,109,.5);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: linear-gradient(145deg, rgba(15,19,32,.7), rgba(10,12,18,.9));
+      aspect-ratio: 4 / 3;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
 
-    .step-text strong {
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 77, 109, 0.3);
+      box-shadow: 0 20px 45px rgba(255, 77, 109, 0.1);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item .gallery-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      background: linear-gradient(0deg, rgba(7,9,16,0.95), transparent);
       color: #ffffff;
+      font-size: 0.8rem;
       font-family: 'Syncopate', sans-serif;
       font-weight: 700;
-      font-size: 0.8rem;
-      margin-bottom: 0.4rem;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: background 0.4s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+      background: rgba(7, 9, 16, 0.95);
+      backdrop-filter: blur(15px);
+    }
+
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 80%;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 77, 109, 0.3);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .lightbox-img.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 25px;
+      right: 35px;
+      font-size: 35px;
+      color: #ff4d6d;
+      cursor: pointer;
+      z-index: 2001;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.3s ease;
+    }
+
+    .lightbox.active .lightbox-close {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .lightbox-close:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px #ff4d6d;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      color: #ff4d6d;
+      cursor: pointer;
+      user-select: none;
+      padding: 20px;
+      z-index: 2001;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox.active .lightbox-prev,
+    .lightbox.active .lightbox-next {
+      opacity: 1;
+    }
+
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+
+    .lightbox-prev:hover,
+    .lightbox-next:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px #ff4d6d;
+    }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: 25px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #a0aec0;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      z-index: 2001;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active .lightbox-counter {
+      opacity: 1;
+    }
+
+    .lightbox.closing {
+      background: rgba(7, 9, 16, 0);
+      transition: background 0.3s ease;
+    }
+
+    .lightbox.closing .lightbox-img {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    /* ===== PROJECTS GRID ===== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+
+    .project-item {
+      background: linear-gradient(145deg, rgba(15,19,32,.7), rgba(10,12,18,.9));
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .project-item:hover {
+      background: rgba(255, 77, 109, 0.04);
+      border-color: rgba(255, 77, 109, 0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(255, 77, 109, 0.05);
+    }
+
+    .project-item h4 {
+      color: #ffffff;
+      font-family: 'Syncopate', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
       letter-spacing: 0.1em;
     }
-    .step-text p {
+
+    .project-item p {
       font-family: 'Share Tech Mono', monospace;
-      margin: 0;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       color: #a0aec0;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ===== BACK LINK ===== */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-top: 3rem;
+      color: #ff4d6d;
+      text-decoration: none;
+      font-family: 'Syncopate', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 0.8rem 1.8rem;
+      border-radius: 40px;
+      border: 1px solid rgba(255,77,109,0.3);
+      background: rgba(255,77,109,0.05);
+      box-shadow: 0 0 15px rgba(255,77,109,0.1);
+    }
+
+    .back-link:hover {
+      color: #070910;
+      background: #ff4d6d;
+      border-color: #ff4d6d;
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(255,77,109,0.5);
     }
 
     /* ===== FOOTER ===== */
@@ -666,12 +802,6 @@
     }
 
     /* ===== RESPONSIVE ===== */
-    @media (max-width: 992px) {
-      .info-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-    }
     @media (max-width: 768px) {
       .site-header {
         top: 15px;
@@ -707,10 +837,9 @@
         border-bottom: 1px solid rgba(255,255,255,0.05);
       }
       .nav-links a::before { display: none; }
-      .hero { padding-top: 140px; min-height: auto; }
-      .info-card { padding: 1.75rem; }
-      .hero-title-interactive { letter-spacing: 0.08em; }
-      .info-card:hover::after { display: none; } /* Отключаем сложную обводку на мобильных ради производительности */
+      .profile-hero { padding-top: 140px; min-height: auto; }
+      .about-section { padding: 3rem 1.2rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -719,7 +848,7 @@
 <div class="custom-cursor-dot" id="cursorDot"></div>
 <div class="custom-cursor-glow" id="cursorGlow"></div>
 
-<!-- ===== HEADER ===== -->
+<!-- ===== HEADER (Точно как в первом коде: логотип слева, ссылки с эффектами) ===== -->
 <header class="site-header" id="siteHeader">
   <div class="header-inner">
     <div class="logo">
@@ -730,8 +859,8 @@
     
     <nav class="nav-links" id="navLinks">
       <ul>
-        <li><a href="index.html" class="active dynamic-text" data-value="HOME">HOME</a></li>
-        <li><a href="team.html" class="dynamic-text" data-value="TEAM">TEAM</a></li>
+        <li><a href="index.html" class="dynamic-text" data-value="HOME">HOME</a></li>
+        <li><a href="team.html" class="active dynamic-text" data-value="TEAM">TEAM</a></li>
         <li><a href="portfolio.html" class="dynamic-text" data-value="PORTFOLIO">PORTFOLIO</a></li>
         <li><a href="contact.html" class="dynamic-text" data-value="CONTACT">CONTACT</a></li>
       </ul>
@@ -745,115 +874,147 @@
   </div>
 </header>
 
-<!-- ===== HERO ===== -->
-<section class="hero" id="heroSection">
+<!-- ===== PROFILE HERO ===== -->
+<section class="profile-hero" id="heroSection">
   <div id="particles-container"></div>
-  <div class="hero-parallax-bg" id="parallaxBg"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
+  <div class="profile-bg" id="parallaxBg"></div>
+  <div class="profile-overlay"></div>
+  <div class="profile-content">
+    <img class="profile-avatar reveal" src="https://iili.io/CGCXtff.png" alt="SHYRINX">
     
     <div class="hero-title-interactive reveal" id="heroTitle">
-      <div class="text-layer">AURADE <span class="aura-symbol"></span> STUDIO</div>
-      <div class="glitch-copy">AURADE <span class="aura-symbol"></span> STUDIO</div>
+      <div class="text-layer">SHYRINX</div>
+      <div class="glitch-copy">SHYRINX</div>
     </div>
     
-    <p class="reveal">Breathing life into imagination through next-gen 2D & 3D digital art</p>
-    <span class="hero-tag reveal">Creative Hub</span>
+    <span class="profile-role-tag reveal">HEAD OF STUDIO <span class="aura-symbol"></span> 3D ANIMATOR <span class="aura-symbol"></span> DESIGNER</span>
   </div>
 </section>
 
 <div class="hero-divider"></div>
 
-<!-- ===== HOME SECTION ===== -->
-<section class="home-section">
-  <div class="container">
-    <div class="info-grid">
-      
-      <!-- CARD 1: STUDIO INFO -->
-      <div class="info-card reveal">
-        <div class="info-icon">
-          <i class="fas fa-cube"></i>
+<!-- ===== ABOUT CONTENT ===== -->
+<section class="about-section">
+
+  <!-- About Me -->
+  <div class="reveal">
+    <h2>About Me</h2>
+    <p>Heyo! My name is ShyRinX and I'm the Head of AURADE Studio. I specialize in 3D animation, modeling, and design. With years of experience in the industry, I lead our talented team to create stunning visual content.</p>
+    <p>I've been producing 3D animations and visual effects for over 5 years, working on various projects ranging from short films to music videos. My work has been featured across multiple platforms and has gathered millions of views.</p>
+  </div>
+
+  <!-- Skill Tree -->
+  <div class="reveal">
+    <h2>Skill Tree</h2>
+    <p>As the Head of Studio, my primary focus is on delivering high-quality 3D animation and design. My toolset includes:</p>
+    <div style="margin: 1.5rem 0;">
+      <span class="skill-tag">Blender 3D</span>
+      <span class="skill-tag">Source Filmmaker</span>
+      <span class="skill-tag">3D Modeling</span>
+      <span class="skill-tag">Texturing</span>
+      <span class="skill-tag">Rigging</span>
+      <span class="skill-tag">Animation</span>
+      <span class="skill-tag">Lighting</span>
+      <span class="skill-tag">Rendering</span>
+      <span class="skill-tag">Compositing</span>
+      <span class="skill-tag">Adobe Photoshop</span>
+      <span class="skill-tag">Adobe After Effects</span>
+    </div>
+    <p>I'm constantly learning and improving my skills. The world of 3D is vast and there's always something new to discover!</p>
+  </div>
+
+  <!-- How I got Here -->
+  <div class="reveal">
+    <h2>How I got Here</h2>
+    <p>My journey into 3D animation started when I discovered Source Filmmaker. I was fascinated by the ability to create cinematic scenes and tell stories through animation. What began as a hobby quickly turned into a passion.</p>
+    <p>Over the years, I've worked with various communities and creators, honing my craft and building a network of talented individuals. This eventually led to the founding of AURADE Studio.</p>
+  </div>
+
+  <!-- Interests / Hobbies -->
+  <div class="reveal">
+    <h2>Interests &amp; Hobbies</h2>
+    <p>When I'm not animating, you can find me:</p>
+    <ul>
+      <li>Exploring new 3D software and techniques</li>
+      <li>Gaming — I'm a huge fan of horror games and immersive story-driven titles</li>
+      <li>Watching animated films and studying their visual style</li>
+      <li>Listening to music — it's a big source of inspiration for my work</li>
+    </ul>
+  </div>
+
+  <!-- ===== PERSONAL PORTFOLIO GALLERY ===== -->
+  <div class="reveal">
+    <h2>My Work</h2>
+    <p>Here are some of my personal projects and works:</p>
+
+    <div class="portfolio-gallery">
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-item" data-index="0">
+          <img src="https://iili.io/CGCXtff.png" alt="Work 1">
+          <div class="gallery-label">Project Title 1</div>
         </div>
-        <h2>Inside The Studio</h2>
-        <p>AURADE is a bold, rising digital art collective pushing the boundaries of visual production. We don't just render images; we forge high-octane animations, sleek 3D assets, and immersive post-production effects that tell unforgettable stories.</p>
-        
-        <h3><i class="fas fa-users"></i> Our Collective Minds</h3>
-        <ul class="info-list">
-          <li>A powerhouse crew of visionary 3D animators, digital artists, and sound designers.</li>
-          <li>Rich background across multiple disciplines: fluid dynamic simulation, custom asset modeling, and tailored music production.</li>
-          <li>Dual-engine workflow: seamlessly harnessing the cinematic weight of SFM combined with the infinite rendering precision of Blender 3D.</li>
-        </ul>
-
-        <h3><i class="fas fa-clock"></i> Timeline & Commitment</h3>
-        <ul class="info-list">
-          <li>Deadlines are built on transparency—calculated individually according to project scale and technical depth.</li>
-          <li>Fueled by fresh perspective and raw passion, we take the extra time needed to polish details to perfection rather than rushing delivery.</li>
-          <li>Timelines stay agile, scaling adaptively with team availability and production milestone demands.</li>
-        </ul>
-
-        <h3><i class="fas fa-globe"></i> Direct Lines</h3>
-        <ul class="info-list">
-          <li>Primary Headquarters: <a href="mailto:Sbezon0@gmail.com" class="interactive-link">Sbezon0@gmail.com</a></li>
-          <li>We host interactive, live design reviews via encrypted direct lines on Telegram or Discord.</li>
-        </ul>
+        <div class="gallery-item" data-index="1">
+          <img src="https://iili.io/CGCM8Kl.png" alt="Work 2">
+          <div class="gallery-label">Project Title 2</div>
+        </div>
+        <div class="gallery-item" data-index="2">
+          <img src="https://iili.io/CGztcTQ.png" alt="Work 3">
+          <div class="gallery-label">Project Title 3</div>
+        </div>
+        <div class="gallery-item" data-index="3">
+          <img src="https://iili.io/CjPenqu.png" alt="Work 4">
+          <div class="gallery-label">Project Title 4</div>
+        </div>
+        <div class="gallery-item" data-index="4">
+          <img src="https://iili.io/CGzrxLb.png" alt="Work 5">
+          <div class="gallery-label">Project Title 5</div>
+        </div>
+        <div class="gallery-item" data-index="5">
+          <img src="https://iili.io/CwM85Dx.png" alt="Work 6">
+          <div class="gallery-label">Project Title 6</div>
+        </div>
       </div>
-
-      <!-- CARD 2: INFO ABOUT THE ORDER -->
-      <div class="info-card reveal">
-        <div class="info-icon">
-          <i class="fas fa-clipboard-list"></i>
-        </div>
-        <h2>Commissioning Process</h2>
-        <p>Ready to manifest your project into digital reality? Here is our roadmap from the first draft to the final sequence.</p>
-
-        <div class="order-steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <div class="step-text">
-              <strong>The Spark (Application)</strong>
-              <p>Drop us a detailed brief outlining your target duration, technical parameters (models/rigs required), and proposed budget. We'll analyze the feasibility and follow up swiftly.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <div class="step-text">
-              <strong>Deep Dive (Consultation)</strong>
-              <p>Once accepted, we establish a secure project hub on Discord or Telegram to break down creative direction, storyboarding, and reference keys.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <div class="step-text">
-              <strong>Greenlight (Advance)</strong>
-              <p>With contracts and parameters locked down, work officially initiates upon receipt of an adjustable deposit designed to secure your production slot.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-number">4</div>
-            <div class="step-text">
-              <strong>The Pipeline (Process)</strong>
-              <p>Watch it grow live. Receive recurring sneak-peeks, blockouts, pre-vis sheets, and intermediate edits to ensure the execution aligns with your exact vision.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-number">5</div>
-            <div class="step-text">
-              <strong>Final Master (Delivery)</strong>
-              <p>We deploy final lighting, post-processing, and multi-format delivery, providing high-bitrate master files tailored exactly to your destination specifications.</p>
-            </div>
-          </div>
-        </div>
-
-        <h3><i class="fas fa-tag"></i> Modern Gateway Payment</h3>
-        <ul class="info-list">
-          <li>Global multi-currency support for frictionless international transactions.</li>
-          <li>Processed securely via direct modern gateways including Boosty, DonationAlerts, or secure wire transfers.</li>
-        </ul>
-      </div>
-      
     </div>
   </div>
+
+  <!-- Projects -->
+  <div class="reveal">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="project-item">
+        <h4>MANGLED</h4>
+        <p>Full Animation — 2026</p>
+      </div>
+      <div class="project-item">
+        <h4>Monster Under My Bed</h4>
+        <p>Full Animation — 2026</p>
+      </div>
+      <div class="project-item">
+        <h4>Various Short Films</h4>
+        <p>Animation — 2024-2025</p>
+      </div>
+      <div class="project-item">
+        <h4>Character Models</h4>
+        <p>3D Modeling — 2025</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Team -->
+  <div class="reveal">
+    <a href="team.html" class="back-link interactive-link"><i class="fas fa-arrow-left"></i> Back to Team</a>
+  </div>
+
 </section>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lightboxClose">&times;</span>
+  <span class="lightbox-prev" id="lightboxPrev">&#10094;</span>
+  <span class="lightbox-next" id="lightboxNext">&#10095;</span>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
 
 <footer class="footer">
   <p>© 2026 AURADE — digital art studio.</p>
@@ -876,12 +1037,12 @@
       }, { duration: 500, fill: "forwards" });
     });
 
-    document.querySelectorAll('.info-card').forEach(card => {
+    document.querySelectorAll('.gallery-item, .project-item').forEach(card => {
       card.addEventListener('mouseenter', () => cursorGlow.classList.add('hovered'));
       card.addEventListener('mouseleave', () => cursorGlow.classList.remove('hovered'));
     });
 
-    document.querySelectorAll('a, button, .step, .interactive-link').forEach(elem => {
+    document.querySelectorAll('a, button, .profile-avatar, .interactive-link').forEach(elem => {
       elem.addEventListener('mouseenter', () => cursorGlow.classList.add('clickable'));
       elem.addEventListener('mouseleave', () => cursorGlow.classList.remove('clickable'));
     });
@@ -907,17 +1068,6 @@
       heroTitle.style.transform = 'translate(0px, 0px)';
     });
   }
-
-  // ===== BG GLOW TRACKING FOR CARDS =====
-  document.querySelectorAll('.info-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    });
-  });
 
   // ===== MATRIX TEXT DECRYPT EFFECT =====
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ✦";
@@ -1013,6 +1163,118 @@
       document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
     });
   }
+
+  // ===== LIGHTBOX =====
+  (function() {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+
+    let currentIndex = 0;
+    let isAnimating = false;
+    const imagesArray = [];
+
+    galleryItems.forEach((item, index) => {
+      const img = item.querySelector('img');
+      if (img) {
+        imagesArray.push({
+          src: img.src,
+          alt: img.alt || 'Work'
+        });
+      }
+      item.addEventListener('click', () => {
+        if (isAnimating) return;
+        currentIndex = index;
+        openLightbox(currentIndex);
+      });
+    });
+
+    function openLightbox(index) {
+      lightbox.classList.add('active');
+      lightbox.classList.remove('closing');
+
+      lightboxImg.src = imagesArray[index].src;
+      lightboxImg.alt = imagesArray[index].alt;
+      lightboxImg.classList.remove('visible');
+
+      setTimeout(() => {
+        lightboxImg.classList.add('visible');
+      }, 50);
+
+      updateCounter(index);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      lightbox.classList.add('closing');
+      lightboxImg.classList.remove('visible');
+
+      setTimeout(() => {
+        lightbox.classList.remove('active');
+        lightbox.classList.remove('closing');
+        document.body.style.overflow = '';
+        isAnimating = false;
+      }, 300);
+    }
+
+    function changeImage(newIndex) {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      lightboxImg.classList.remove('visible');
+
+      setTimeout(() => {
+        lightboxImg.src = imagesArray[newIndex].src;
+        lightboxImg.alt = imagesArray[newIndex].alt;
+        currentIndex = newIndex;
+        updateCounter(currentIndex);
+
+        setTimeout(() => {
+          lightboxImg.classList.add('visible');
+          isAnimating = false;
+        }, 50);
+      }, 150);
+    }
+
+    function showPrev() {
+      const newIndex = (currentIndex - 1 + imagesArray.length) % imagesArray.length;
+      changeInfoImage(newIndex); // handled via changeImage
+      changeImage(newIndex);
+    }
+
+    function showNext() {
+      const newIndex = (currentIndex + 1) % imagesArray.length;
+      changeImage(newIndex);
+    }
+
+    function updateCounter(index) {
+      lightboxCounter.textContent = `${index + 1} / ${imagesArray.length}`;
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', showPrev);
+    lightboxNext.addEventListener('click', showNext);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox && !isAnimating) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active') || isAnimating) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+  })();
 </script>
 
 </body>
