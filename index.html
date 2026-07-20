@@ -397,7 +397,233 @@
         text-align: center;
       }
     }
-  </style>
+  
+/* ===== Modern UI enhancement layer ===== */
+:root {
+  --accent: #ff4d6d;
+  --accent-soft: rgba(255,77,109,.18);
+  --panel: rgba(18,22,35,.72);
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255,77,109,.12), transparent 30%),
+    radial-gradient(circle at 85% 30%, rgba(120,140,255,.12), transparent 35%),
+    #070910;
+}
+
+.site-header {
+  position: fixed;
+  padding: 1.2rem 2rem;
+  background: linear-gradient(to bottom, rgba(7,9,16,.75), transparent);
+  backdrop-filter: blur(12px);
+}
+
+.logo img {
+  filter: drop-shadow(0 8px 20px rgba(255,77,109,.35));
+}
+
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: .3s;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.hero {
+  min-height: 78vh;
+}
+
+.hero-parallax-bg {
+  filter: saturate(1.15) contrast(1.05);
+}
+
+.hero-overlay {
+  background:
+    linear-gradient(180deg, rgba(5,7,12,.35), rgba(5,7,12,.85)),
+    radial-gradient(circle at center, transparent, rgba(0,0,0,.45));
+}
+
+.hero h1 {
+  text-shadow: 0 15px 50px rgba(0,0,0,.5);
+}
+
+.hero p {
+  font-size: 1.35rem;
+}
+
+.info-card {
+  background: linear-gradient(145deg, rgba(25,30,48,.8), rgba(12,15,25,.85));
+  border: 1px solid rgba(255,255,255,.09);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+.info-card::before {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 60px;
+  margin-bottom: 1.5rem;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #ff4d6d, #9aa9ff);
+}
+
+.step {
+  border: 1px solid rgba(255,255,255,.04);
+}
+
+.step-number {
+  box-shadow: 0 0 25px rgba(255,77,109,.35);
+}
+
+.hero-divider {
+  height: 3px;
+  box-shadow: 0 0 25px rgba(255,77,109,.5);
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    padding: 1rem;
+  }
+  .hero h1 {
+    font-size: 2.6rem;
+  }
+}
+
+
+/* Animated AURADE ✦ STUDIO symbol */
+.aura-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: .9em;
+  height: .9em;
+  margin: 0 .18em;
+  color: #ff4d6d;
+  position: relative;
+  animation: symbolFloat 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 18px rgba(255,77,109,.75));
+}
+
+.aura-symbol::before {
+  content: "✦";
+  position: absolute;
+  font-size: .9em;
+  animation: symbolSpin 5s linear infinite;
+}
+
+.aura-symbol::after {
+  content: "";
+  position: absolute;
+  width: 1.4em;
+  height: 1.4em;
+  border: 2px solid rgba(255,77,109,.35);
+  border-radius: 50%;
+  animation: symbolPulse 2s ease-out infinite;
+}
+
+@keyframes symbolSpin {
+  from { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.25); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes symbolPulse {
+  0% { transform: scale(.6); opacity: .9; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+@keyframes symbolFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+
+/* ===== Refined logo typography + straight spinning symbol ===== */
+
+.hero h1 {
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+  line-height: .95;
+  background: linear-gradient(135deg, #ffffff 15%, #dbe2ff 45%, #ff8aa0 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 12px 40px rgba(0,0,0,.45);
+}
+
+.hero h1 span.aura-symbol {
+  display: inline-flex;
+  vertical-align: middle;
+  width: .85em;
+  height: .85em;
+  margin: 0 .12em;
+  position: relative;
+  color: #ff4d6d;
+  filter: drop-shadow(0 0 15px rgba(255,77,109,.8));
+  animation: none;
+}
+
+.aura-symbol::before {
+  content: "✦";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: straightSpin 3s linear infinite;
+  transform-origin: center;
+}
+
+.aura-symbol::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  border: 2px solid rgba(255,77,109,.3);
+  border-radius: 50%;
+  animation: pulseRing 2s ease-out infinite;
+}
+
+@keyframes straightSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(.7);
+    opacity: .8;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+.hero h1 span:not(.aura-symbol) {
+  color: #ff4d6d;
+}
+
+</style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
@@ -407,7 +633,7 @@
   <div class="header-inner">
     <div class="logo">
       <a href="home.html">
-        <img src="" alt="" style="height: 50px; border-radius: 10px;">
+        <img src="https://iili.io/Bu9qAdB.png" alt="AURADE logo" style="height: 50px; border-radius: 10px;">
       </a>
     </div>
     <nav class="nav-links">
@@ -442,7 +668,7 @@
   <div class="hero-parallax-bg" id="parallaxBg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1>AURADE <span>✦</span> STUDIO</h1>
+    <h1>AURADE <span class="aura-symbol"></span> STUDIO</h1>
     <p>WE CREATE ANIMATIONS AND OTHER WORKS IN 3D AND 2D</p>
     <div style="margin-top: 2rem;">
       <span style="background:#ff4d6d20; backdrop-filter: blur(4px); padding:0.4rem 1.2rem; border-radius:40px; font-size:0.8rem;">HOME</span>
@@ -583,6 +809,633 @@
   closeMenu.addEventListener('click', closeMenuFunc);
   menuOverlay.addEventListener('click', closeMenuFunc);
 </script>
+
+
+<!-- Premium typography + centered logo animation -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: "Manrope", sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+h1, h2, h3 {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+}
+
+.hero h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .18em;
+
+    font-size: clamp(3rem, 7vw, 5.6rem);
+    font-weight: 700;
+    line-height: 1;
+
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #dce4ff 45%,
+        #ff9aae 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    text-shadow:
+        0 0 35px rgba(255,255,255,.08),
+        0 20px 60px rgba(0,0,0,.5);
+}
+
+.aura-symbol {
+    width: .9em;
+    height: .9em;
+    flex: 0 0 .9em;
+
+    position: relative;
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+}
+
+.aura-symbol::before {
+    content:"✦";
+
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#ff4d6d;
+
+    font-size:.8em;
+    line-height:1;
+
+    transform-origin:center center;
+
+    animation: logoRotate 4s linear infinite;
+
+    filter:
+        drop-shadow(0 0 8px #ff4d6d)
+        drop-shadow(0 0 20px rgba(255,77,109,.8));
+}
+
+.aura-symbol::after {
+    content:"";
+
+    position:absolute;
+
+    width:90%;
+    height:90%;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    border:2px solid rgba(255,77,109,.35);
+
+    animation:ringPulse 2.2s ease-out infinite;
+}
+
+@keyframes logoRotate {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes ringPulse {
+    0% {
+        transform:translate(-50%,-50%) scale(.7);
+        opacity:.8;
+    }
+
+    100% {
+        transform:translate(-50%,-50%) scale(1.7);
+        opacity:0;
+    }
+}
+
+.hero p {
+    font-size:1.25rem;
+    font-weight:300;
+    letter-spacing:.08em;
+    color:#c7d0e5;
+}
+
+.info-card {
+    font-family:"Manrope",sans-serif;
+}
+
+.info-card h2 {
+    font-size:2rem;
+}
+
+.info-card p,
+.info-list li,
+.step-text p {
+    line-height:1.85;
+    color:#b9c5dc;
+}
+</style>
+
+
+<style>
+/* ===== Premium top navigation ===== */
+
+.site-header {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: min(1200px, calc(100% - 40px));
+
+    padding: 14px 24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.08),
+            rgba(255,255,255,.02)
+        );
+
+    backdrop-filter: blur(18px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:22px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.45),
+        inset 0 1px rgba(255,255,255,.08);
+
+    z-index:1000;
+}
+
+.header-inner {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo img {
+    height:46px;
+    transition:.35s ease;
+}
+
+.logo img:hover {
+    transform:scale(1.08);
+    filter:drop-shadow(0 0 15px rgba(255,77,109,.6));
+}
+
+
+.nav-links ul {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    list-style:none;
+}
+
+.nav-links a {
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:10px 22px;
+
+    border-radius:999px;
+
+    color:#e8edff;
+
+    font-family:"Manrope",sans-serif;
+
+    font-size:.95rem;
+    font-weight:600;
+
+    letter-spacing:.04em;
+
+    text-decoration:none;
+
+    transition:.35s ease;
+
+}
+
+
+.nav-links a::before {
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:999px;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,77,109,.25),
+        rgba(154,169,255,.18)
+    );
+
+    opacity:0;
+
+    transform:scale(.8);
+
+    transition:.35s ease;
+
+    z-index:-1;
+}
+
+
+.nav-links a:hover,
+.nav-links a.active {
+
+    color:white;
+
+    transform:translateY(-2px);
+
+}
+
+
+.nav-links a:hover::before,
+.nav-links a.active::before {
+
+    opacity:1;
+
+    transform:scale(1);
+
+}
+
+
+.burger span {
+
+    background:#fff;
+
+}
+
+
+@media(max-width:768px){
+
+.site-header{
+
+    top:10px;
+
+    width:calc(100% - 20px);
+
+    padding:12px 18px;
+
+}
+
+.nav-links{
+    display:none;
+}
+
+}
+</style>
+
+
+<style>
+/* ===== Centered navigation ===== */
+
+.site-header {
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+}
+
+.header-inner {
+    justify-content:center;
+}
+
+.logo {
+    display:none;
+}
+
+.nav-links ul {
+    justify-content:center;
+}
+
+
+/* ===== Premium site typography ===== */
+
+body {
+    font-family:"Manrope", sans-serif;
+    color:#d9e2f5;
+}
+
+h1,h2,h3 {
+    font-family:"Space Grotesk", sans-serif;
+    letter-spacing:-0.045em;
+    font-weight:700;
+}
+
+.info-card h2,
+.section-title {
+    font-size:clamp(1.8rem,3vw,2.8rem);
+    background:linear-gradient(
+        120deg,
+        #ffffff,
+        #cbd6ff,
+        #ff7d98
+    );
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.info-card p,
+.info-list li,
+.step-text p {
+    font-size:1.08rem;
+    line-height:1.9;
+    color:#bcc8dd;
+    letter-spacing:.02em;
+}
+
+.step-title {
+    font-family:"Space Grotesk",sans-serif;
+    font-weight:600;
+    font-size:1.3rem;
+    color:#ffffff;
+}
+
+.hero p {
+    max-width:700px;
+    margin:auto;
+    font-weight:300;
+    letter-spacing:.1em;
+}
+
+button,
+.nav-links a {
+    font-family:"Manrope",sans-serif;
+}
+
+</style>
+
+
+<style>
+/* ===== Mobile navigation fix ===== */
+
+@media (max-width:768px){
+
+    .site-header {
+        width:calc(100% - 20px);
+        overflow:visible;
+    }
+
+    .header-inner {
+        justify-content:center;
+    }
+
+    .nav-links {
+        display:block !important;
+        width:100%;
+    }
+
+    .nav-links ul {
+        display:flex !important;
+        justify-content:center;
+        align-items:center;
+        gap:6px;
+
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        scrollbar-width:none;
+        padding:0;
+    }
+
+    .nav-links ul::-webkit-scrollbar {
+        display:none;
+    }
+
+    .nav-links a {
+        display:flex !important;
+        white-space:nowrap;
+        padding:9px 14px;
+        font-size:.82rem;
+    }
+
+}
+</style>
+
+
+<style>
+/* Remove mobile hamburger menu and keep full navigation visible */
+
+.burger,
+.menu-toggle,
+.mobile-menu-button,
+.hamburger {
+    display:none !important;
+}
+
+@media (max-width:768px){
+
+    .nav-links {
+        display:block !important;
+    }
+
+    .nav-links ul {
+        display:flex !important;
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        justify-content:flex-start;
+    }
+
+}
+</style>
+
+
+<style>
+/* ===== Hide navigation when scrolling down ===== */
+
+.site-header {
+    transition:
+        transform .45s ease,
+        opacity .35s ease,
+        backdrop-filter .35s ease;
+}
+
+.site-header.nav-hidden {
+    transform: translate(-50%, -130%);
+    opacity:0;
+    pointer-events:none;
+}
+
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const header = document.querySelector(".site-header");
+
+    if (!header) return;
+
+    let lastScroll = 0;
+
+    window.addEventListener("scroll", () => {
+
+        const currentScroll = window.scrollY;
+
+        if (currentScroll > lastScroll && currentScroll > 80) {
+            // scrolling down
+            header.classList.add("nav-hidden");
+        } 
+        else {
+            // scrolling up
+            header.classList.remove("nav-hidden");
+        }
+
+        lastScroll = currentScroll;
+
+    });
+
+});
+</script>
+
+
+<style>
+/* ===== Navigation only inside hero area ===== */
+
+.site-header {
+    position:absolute;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    transition:
+        opacity .4s ease,
+        transform .4s ease;
+}
+
+/* hide after leaving top image area */
+.site-header.outside-hero {
+    opacity:0;
+    pointer-events:none;
+    transform:translateX(-50%) translateY(-30px);
+}
+
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+    const header = document.querySelector(".site-header");
+    const hero = document.querySelector(".hero");
+
+    if(!header || !hero) return;
+
+    const observer = new IntersectionObserver((entries)=>{
+
+        entries.forEach(entry=>{
+
+            if(entry.isIntersecting){
+                header.classList.remove("outside-hero");
+            } else {
+                header.classList.add("outside-hero");
+            }
+
+        });
+
+    },{
+        threshold:0.15
+    });
+
+    observer.observe(hero);
+
+});
+</script>
+
+
+<!-- Premium global typography (logo untouched) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* Everything except logo */
+body,
+p,
+li,
+button,
+a,
+input,
+textarea,
+.info-card,
+.step-text {
+    font-family:"Outfit", sans-serif;
+    letter-spacing:.025em;
+}
+
+/* Keep logo exactly as it is */
+.logo,
+.logo *,
+.hero h1,
+.aura-symbol {
+    font-family:inherit;
+}
+
+/* Elegant headings */
+h2,
+h3,
+.section-title,
+.info-card h2,
+.step-title {
+    font-family:"Outfit", sans-serif;
+    font-weight:700;
+    letter-spacing:-.035em;
+}
+
+/* Main text */
+p,
+li {
+    font-weight:400;
+    line-height:1.85;
+    color:#c4cee2;
+}
+
+/* Small labels / navigation */
+.nav-links a {
+    font-weight:600;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+}
+
+/* Better mobile readability */
+@media(max-width:768px){
+    body {
+        letter-spacing:.015em;
+    }
+
+    p, li {
+        line-height:1.7;
+    }
+}
+
+</style>
 
 </body>
 </html>

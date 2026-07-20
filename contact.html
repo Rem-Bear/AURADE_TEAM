@@ -5,7 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title> AURADE | CONTACT </title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
   <style>
+    /* ===== RESET & BASE ===== */
     * {
       margin: 0;
       padding: 0;
@@ -14,139 +22,216 @@
 
     body {
       background-color: #0a0c12;
-      font-family: 'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      color: #eef2ff;
-      line-height: 1.5;
+      font-family: 'Outfit', 'Manrope', 'Segoe UI', sans-serif;
+      color: #d9e2f5;
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,77,109,.12), transparent 30%),
+        radial-gradient(circle at 85% 30%, rgba(120,140,255,.12), transparent 35%),
+        #070910;
     }
 
     h1, h2, h3 {
-      font-weight: 600;
-      letter-spacing: -0.02em;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.045em;
     }
 
-    /* ===== ХЕДЕР С МЕНЮ ===== */
-    .site-header {
+    /* ===== ANIMATED SYMBOL ===== */
+    .aura-symbol {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: .9em;
+      height: .9em;
+      flex: 0 0 .9em;
+      position: relative;
+      margin: 0 .12em;
+      color: #ff4d6d;
+      filter: drop-shadow(0 0 15px rgba(255,77,109,.8));
+    }
+
+    .aura-symbol::before {
+      content: "✦";
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 100;
-      padding: 1.5rem 2rem;
-      background: transparent;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8em;
+      line-height: 1;
+      animation: straightSpin 4s linear infinite;
+      transform-origin: center center;
+      filter: drop-shadow(0 0 8px #ff4d6d) drop-shadow(0 0 20px rgba(255,77,109,.8));
+    }
+
+    .aura-symbol::after {
+      content: "";
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 2px solid rgba(255,77,109,.35);
+      animation: ringPulse 2.2s ease-out infinite;
+    }
+
+    @keyframes straightSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes ringPulse {
+      0% {
+        transform: translate(-50%, -50%) scale(.7);
+        opacity: .8;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.7);
+        opacity: 0;
+      }
+    }
+
+    /* ===== PREMIUM NAVIGATION ===== */
+    .site-header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1200px, calc(100% - 40px));
+      padding: 14px 24px;
+      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 1px rgba(255,255,255,.08);
+      z-index: 1000;
+      transition: opacity .4s ease, transform .4s ease;
+    }
+
+    .site-header.nav-hidden {
+      transform: translate(-50%, -130%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .site-header.outside-hero {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(-30px);
     }
 
     .header-inner {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      max-width: 1400px;
-      margin: 0 auto;
     }
 
-    .logo img {
-      height: 50px;
-      width: auto;
+    .logo {
+      display: none;
     }
 
-    .nav-links {
+    .nav-links ul {
       display: flex;
-      gap: 2rem;
+      align-items: center;
+      gap: 12px;
       list-style: none;
+      justify-content: center;
     }
 
     .nav-links a {
-      color: #eef2ff;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 22px;
+      border-radius: 999px;
+      color: #e8edff;
+      font-family: 'Manrope', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
       text-decoration: none;
-      font-weight: 500;
-      transition: 0.2s;
+      transition: .35s ease;
+    }
+
+    .nav-links a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255,77,109,.25), rgba(154,169,255,.18));
+      opacity: 0;
+      transform: scale(.8);
+      transition: .35s ease;
+      z-index: -1;
     }
 
     .nav-links a:hover,
     .nav-links a.active {
-      color: #ff4d6d;
+      color: white;
+      transform: translateY(-2px);
     }
 
-    .burger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
+    .nav-links a:hover::before,
+    .nav-links a.active::before {
+      opacity: 1;
+      transform: scale(1);
     }
 
-    .burger span {
-      width: 25px;
-      height: 3px;
-      background: #eef2ff;
-      transition: 0.3s;
-      border-radius: 3px;
+    .burger,
+    .menu-toggle,
+    .mobile-menu-button,
+    .hamburger {
+      display: none !important;
     }
 
-    .mobile-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 80%;
-      max-width: 300px;
-      height: 100vh;
-      background: rgba(10, 12, 18, 0.95);
-      backdrop-filter: blur(10px);
-      z-index: 200;
-      transition: 0.3s;
-      padding: 5rem 2rem;
-      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+    @media (max-width: 768px) {
+      .site-header {
+        top: 10px;
+        width: calc(100% - 20px);
+        padding: 12px 18px;
+        overflow: visible;
+      }
+
+      .nav-links {
+        display: block !important;
+        width: 100%;
+      }
+
+      .nav-links ul {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding: 0;
+      }
+
+      .nav-links ul::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-links a {
+        white-space: nowrap;
+        padding: 9px 14px;
+        font-size: .82rem;
+      }
+
+      .burger {
+        display: none !important;
+      }
     }
 
-    .mobile-menu.active {
-      right: 0;
-    }
-
-    .mobile-menu ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .mobile-menu a {
-      color: #eef2ff;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
-
-    .mobile-menu a:hover,
-    .mobile-menu a.active {
-      color: #ff4d6d;
-    }
-
-    .close-menu {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      font-size: 2rem;
-      cursor: pointer;
-      color: #eef2ff;
-    }
-
-    .menu-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(3px);
-      z-index: 150;
-      display: none;
-    }
-
-    .menu-overlay.active {
-      display: block;
-    }
-
-    /* Hero-секция */
+    /* ===== HERO SECTION ===== */
     .hero {
       position: relative;
-      min-height: 55vh;
+      min-height: 78vh;
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -167,6 +252,7 @@
       z-index: 0;
       transform: translateY(0);
       will-change: transform;
+      filter: saturate(1.15) contrast(1.05);
     }
 
     .hero-overlay {
@@ -175,7 +261,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(145deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
+      background:
+        linear-gradient(180deg, rgba(5,7,12,.35), rgba(5,7,12,.85)),
+        radial-gradient(circle at center, transparent, rgba(0,0,0,.45));
       z-index: 1;
     }
 
@@ -187,39 +275,64 @@
     }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 8vw, 4.8rem);
-      background: linear-gradient(135deg, #FFFFFF, #9aa9ff);
-      background-clip: text;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .18em;
+      font-size: clamp(3rem, 7vw, 5.6rem);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      line-height: 1;
+      background: linear-gradient(180deg, #ffffff 0%, #dce4ff 45%, #ff9aae 100%);
       -webkit-background-clip: text;
+      background-clip: text;
       color: transparent;
+      text-shadow: 0 0 35px rgba(255,255,255,.08), 0 20px 60px rgba(0,0,0,.5);
       margin-bottom: 1rem;
     }
 
-    .hero h1 span {
-      background: none;
+    .hero h1 .aura-symbol {
       color: #ff4d6d;
+      background: none;
+      filter: drop-shadow(0 0 15px rgba(255,77,109,.8));
     }
 
     .hero p {
-      font-size: 1.2rem;
-      margin-top: 1rem;
-      color: #ffffff;
+      font-size: 1.35rem;
+      font-weight: 300;
+      letter-spacing: .08em;
+      color: #c7d0e5;
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
       text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
-    /* БЕЛАЯ РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ */
+    .hero-tag {
+      margin-top: 2rem;
+      display: inline-block;
+      background: rgba(255,77,109,0.2);
+      backdrop-filter: blur(4px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #ff9aae;
+    }
+
+    /* ===== DIVIDER ===== */
     .hero-divider {
       width: 100%;
-      height: 2px;
+      height: 3px;
       background: linear-gradient(90deg, transparent, #ffffff, #ff4d6d, #ffffff, transparent);
       position: relative;
       z-index: 5;
+      box-shadow: 0 0 25px rgba(255,77,109,.5);
     }
 
-    /* Секция контактов */
+    /* ===== CONTACT SECTION ===== */
     .contact-section {
       padding: 5rem 2rem;
       background: #0a0c12;
@@ -234,21 +347,32 @@
     }
 
     .contact-card {
-      background: rgba(18, 22, 35, 0.8);
+      background: linear-gradient(145deg, rgba(25,30,48,.8), rgba(12,15,25,.85));
       backdrop-filter: blur(4px);
       border-radius: 2rem;
       padding: 3rem 2rem;
       text-align: center;
       max-width: 600px;
       margin: 0 auto;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 20px 35px -15px rgba(0, 0, 0, 0.5);
       transition: all 0.25s ease;
+    }
+
+    .contact-card::before {
+      content: "";
+      display: block;
+      height: 3px;
+      width: 60px;
+      margin: 0 auto 1.5rem;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #ff4d6d, #9aa9ff);
     }
 
     .contact-card:hover {
       transform: translateY(-6px);
       border-color: rgba(255, 77, 109, 0.4);
-      box-shadow: 0 25px 40px -12px #ff4d6d20;
+      box-shadow: 0 25px 40px -12px rgba(255,77,109,0.2);
     }
 
     .contact-icon {
@@ -261,24 +385,49 @@
       font-size: 1.5rem;
       margin-bottom: 1rem;
       word-break: break-all;
+      font-family: 'Space Grotesk', sans-serif;
     }
 
     .contact-email a {
       color: #ff4d6d;
       text-decoration: none;
       transition: 0.2s;
+      position: relative;
+    }
+
+    .contact-email a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: #ff4d6d;
+      transition: 0.3s;
     }
 
     .contact-email a:hover {
       color: #ffffff;
     }
 
+    .contact-email a:hover::after {
+      width: 100%;
+    }
+
     .contact-note {
       font-size: 0.9rem;
       color: #b9c3e6;
       margin-top: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
     }
 
+    .contact-note i {
+      color: #ff4d6d;
+      margin-right: 0.5rem;
+    }
+
+    /* ===== FOOTER ===== */
     .footer {
       background: #05070c;
       padding: 3rem 2rem;
@@ -288,33 +437,14 @@
       color: #7f8c9a;
     }
 
-    .social-footer {
-      display: flex;
-      justify-content: center;
-      gap: 1.8rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .social-footer a {
-      color: #b9c3e6;
-      font-size: 1.6rem;
-      transition: 0.2s;
-    }
-
-    .social-footer a:hover {
-      color: #ff4d6d;
-    }
-
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-      .burger {
-        display: flex;
-      }
       .hero {
         padding: 5rem 1rem 4rem;
+        min-height: 70vh;
+      }
+      .hero h1 {
+        font-size: 2.6rem;
       }
       .contact-section {
         padding: 3rem 1rem;
@@ -327,16 +457,15 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
 
-<!-- ХЕДЕР -->
-<header class="site-header">
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="siteHeader">
   <div class="header-inner">
     <div class="logo">
       <a href="index.html">
-        <img src="" alt="" style="height: 50px; border-radius: 10px;">
+        <img src="https://iili.io/Bu9qAdB.png" alt="AURADE" style="height: 50px; border-radius: 10px;">
       </a>
     </div>
     <nav class="nav-links">
@@ -344,10 +473,10 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="team.html">Team</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
       </ul>
     </nav>
-    <div class="burger" id="burger">
+    <div class="burger" id="burger" style="display:none;">
       <span></span>
       <span></span>
       <span></span>
@@ -355,34 +484,20 @@
   </div>
 </header>
 
-<div class="menu-overlay" id="menuOverlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <div class="close-menu" id="closeMenu">&times;</div>
-  <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="contact.html">Contact</a></li>
-  </ul>
-</div>
-
-<!-- HERO С ПАРАЛЛАКС ФОНОМ -->
-<section class="hero">
+<!-- ===== HERO ===== -->
+<section class="hero" id="heroSection">
   <div class="hero-parallax-bg" id="parallaxBg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1>AURADE <span>✦</span> CONTACT</h1>
+    <h1>AURADE <span class="aura-symbol"></span> CONTACT</h1>
     <p>GET IN TOUCH WITH US</p>
-    <div style="margin-top: 2rem;">
-      <span style="background:#ff4d6d20; backdrop-filter: blur(4px); padding:0.4rem 1.2rem; border-radius:40px; font-size:0.8rem;">CONTACT</span>
-    </div>
+    <span class="hero-tag">CONTACT</span>
   </div>
 </section>
 
-<!-- БЕЛАЯ РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ -->
 <div class="hero-divider"></div>
 
-<!-- СЕКЦИЯ КОНТАКТОВ -->
+<!-- ===== CONTACT SECTION ===== -->
 <section class="contact-section">
   <div class="container">
     <div class="contact-card">
@@ -400,43 +515,76 @@
 </section>
 
 <footer class="footer">
-   <div class="social-footer">
-
-  </div>
-  <p>© 2026 AURADE — digital art studio..</p>
-  <p style="margin-top:0.8rem; font-size:0.7rem;"></p>
+  <p>© 2026 AURADE — digital art studio.</p>
 </footer>
 
 <script>
-  // ПАРАЛЛАКС ЭФФЕКТ
+  // ===== PARALLAX =====
   const parallaxBg = document.getElementById('parallaxBg');
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
-    const translateY = scrolled * 0.3;
-    if (parallaxBg) parallaxBg.style.transform = `translateY(${translateY}px)`;
+    if (parallaxBg) {
+      parallaxBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+    }
   });
 
-  // МЕНЮ (бургер + размытие фона)
+  // ===== NAVIGATION HIDE ON SCROLL =====
+  (function() {
+    const header = document.getElementById('siteHeader');
+    if (!header) return;
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      if (currentScroll > lastScroll && currentScroll > 80) {
+        header.classList.add('nav-hidden');
+      } else {
+        header.classList.remove('nav-hidden');
+      }
+      lastScroll = currentScroll;
+    });
+  })();
+
+  // ===== NAVIGATION VISIBILITY INSIDE HERO =====
+  (function() {
+    const header = document.getElementById('siteHeader');
+    const hero = document.getElementById('heroSection');
+    if (!header || !hero) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          header.classList.remove('outside-hero');
+        } else {
+          header.classList.add('outside-hero');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(hero);
+  })();
+
+  // ===== (Бургер скрыт, обработчики на всякий случай) =====
   const burger = document.getElementById('burger');
   const mobileMenu = document.getElementById('mobileMenu');
   const menuOverlay = document.getElementById('menuOverlay');
   const closeMenu = document.getElementById('closeMenu');
 
   function openMenu() {
-    mobileMenu.classList.add('active');
-    menuOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    if (mobileMenu) mobileMenu.classList.add('active');
+    if (menuOverlay) menuOverlay.classList.add('active');
+    if (document.body) document.body.style.overflow = 'hidden';
   }
 
   function closeMenuFunc() {
-    mobileMenu.classList.remove('active');
-    menuOverlay.classList.remove('active');
-    document.body.style.overflow = '';
+    if (mobileMenu) mobileMenu.classList.remove('active');
+    if (menuOverlay) menuOverlay.classList.remove('active');
+    if (document.body) document.body.style.overflow = '';
   }
 
-  burger.addEventListener('click', openMenu);
-  closeMenu.addEventListener('click', closeMenuFunc);
-  menuOverlay.addEventListener('click', closeMenuFunc);
+  if (burger) burger.addEventListener('click', openMenu);
+  if (closeMenu) closeMenu.addEventListener('click', closeMenuFunc);
+  if (menuOverlay) menuOverlay.addEventListener('click', closeMenuFunc);
 </script>
 
 </body>
