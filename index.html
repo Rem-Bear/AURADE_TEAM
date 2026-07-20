@@ -59,6 +59,78 @@
       overflow-x: hidden;
     }
 
+    /* ===== INTRO LOADER ANIMATION ===== */
+    #introLoader {
+      position: fixed;
+      inset: 0;
+      background: #05060a;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #introLoader.loader-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loader-content {
+      text-align: center;
+    }
+    .loader-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: 0.3em;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+      position: relative;
+      animation: loaderPulse 1.5s ease-in-out infinite alternate;
+    }
+    .loader-logo span {
+      color: #ff4d6d;
+    }
+    .loader-bar-container {
+      width: 240px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 0 auto;
+      position: relative;
+    }
+    .loader-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: #ff4d6d;
+      box-shadow: 0 0 15px #ff4d6d;
+      transform: translateX(-100%);
+      animation: loaderProgress 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .loader-text {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: #718096;
+      margin-top: 1rem;
+      text-transform: uppercase;
+    }
+
+    @keyframes loaderProgress {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(-20%); }
+      100% { transform: translateX(0%); }
+    }
+    @keyframes loaderPulse {
+      0% { text-shadow: 0 0 10px rgba(255,77,109,0.2); }
+      100% { text-shadow: 0 0 25px rgba(255,77,109,0.7); }
+    }
+
     @media (min-width: 769px) {
       body, a, button, .info-card, .step, .hero-title-interactive {
         cursor: none !important;
@@ -254,11 +326,10 @@
       transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
-    /* Эффект сужающейся концентрации на ссылках */
     .nav-links a::before {
       content: "";
       position: absolute;
-      inset: -3px; /* Начинает снаружи */
+      inset: -3px;
       border-radius: 999px;
       border: 1px solid transparent;
       background: linear-gradient(135deg, rgba(255,77,109,.2), rgba(120,140,255,.1)) padding-box;
@@ -269,13 +340,13 @@
     .nav-links a:hover,
     .nav-links a.active {
       color: #ffffff;
-      letter-spacing: 0.12em; /* Буквы слегка концентрируются ближе */
+      letter-spacing: 0.12em;
       text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
     }
     .nav-links a:hover::before,
     .nav-links a.active::before {
       opacity: 1;
-      inset: 0; /* Обводка плавно притягивается и фиксируется на кнопке */
+      inset: 0;
       border: 1px solid rgba(255, 77, 109, 0.4);
     }
 
@@ -462,11 +533,10 @@
       transition: transform 0.4rem cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
     }
 
-    /* Эффект сужающегося сканера обводки */
     .info-card::after {
       content: "";
       position: absolute;
-      inset: -15px; /* Изначально обводка шире самой карточки */
+      inset: -15px;
       border: 1px solid rgba(255, 77, 109, 0);
       border-radius: 24px;
       pointer-events: none;
@@ -488,19 +558,18 @@
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Активация эффекта притягивания фокуса */
     .info-card:hover {
       transform: translateY(-4px);
       border-color: rgba(255, 77, 109, 0.15);
       box-shadow: 0 20px 45px rgba(255, 77, 109, 0.05);
     }
     .info-card:hover::after {
-      inset: 8px; /* Обводка "сжимается" внутрь карточки, концентрируя взгляд */
+      inset: 8px;
       border-color: rgba(255, 77, 109, 0.3);
       box-shadow: inset 0 0 15px rgba(255, 77, 109, 0.08);
     }
     .info-card:hover > * {
-      transform: scale(0.99); /* Текст слегка уходит вглубь для 3D глубины */
+      transform: scale(0.99);
     }
 
     .info-icon {
@@ -628,7 +697,6 @@
       box-shadow: 0 0 10px rgba(255,77,109,.1);
     }
     
-    /* Концентрация кольца при наведении на шаг */
     .step:hover .step-number {
       border-color: #ff4d6d;
       background: #ff4d6d;
@@ -710,11 +778,22 @@
       .hero { padding-top: 140px; min-height: auto; }
       .info-card { padding: 1.75rem; }
       .hero-title-interactive { letter-spacing: 0.08em; }
-      .info-card:hover::after { display: none; } /* Отключаем сложную обводку на мобильных ради производительности */
+      .info-card:hover::after { display: none; }
     }
   </style>
 </head>
 <body>
+
+<!-- ===== INTRO LOADER ANIMATION (ВОЗВРАЩЕН В НАЧАЛО ТЕЛА) ===== -->
+<div id="introLoader">
+  <div class="loader-content">
+    <div class="loader-logo">AURA<span>DE</span></div>
+    <div class="loader-bar-container">
+      <div class="loader-bar"></div>
+    </div>
+    <div class="loader-text">INITIALIZING SYSTEM...</div>
+  </div>
+</div>
 
 <div class="custom-cursor-dot" id="cursorDot"></div>
 <div class="custom-cursor-glow" id="cursorGlow"></div>
@@ -860,6 +939,38 @@
 </footer>
 
 <script>
+  // ===== INTRO LOADER LOGIC (RELOAD DETECTION) =====
+  (function() {
+    const loader = document.getElementById('introLoader');
+    if (!loader) return;
+
+    // Проверяем тип загрузки страницы
+    let isReload = false;
+    if (performance.navigation) {
+      isReload = performance.navigation.type === performance.navigation.TYPE_RELOAD;
+    } else {
+      const entries = performance.getEntriesByType('navigation');
+      if (entries.length > 0 && entries[0].type === 'reload') {
+        isReload = true;
+      }
+    }
+
+    // Если это НЕ перезагрузка (переход по ссылкам меню) и анимация уже была просмотрена — гасим сразу
+    if (!isReload && sessionStorage.getItem('aurade_seen')) {
+      loader.remove();
+    } else {
+      // Иначе (первый вход или нажатие F5 / перезагрузка) — показываем анимацию
+      sessionStorage.setItem('aurade_seen', 'true');
+      
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          loader.classList.add('loader-hidden');
+          setTimeout(() => loader.remove(), 600);
+        }, 1200);
+      });
+    }
+  })();
+
   // ===== CUSTOM CURSOR =====
   const cursorDot = document.getElementById('cursorDot');
   const cursorGlow = document.getElementById('cursorGlow');
