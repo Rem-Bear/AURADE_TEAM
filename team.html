@@ -288,7 +288,13 @@
       background-repeat: no-repeat;
       z-index: 0;
       will-change: transform;
-      filter: saturate(1.15) contrast(1.05);
+      filter: saturate(1.45) contrast(1.25) brightness(1.08);
+      animation: heroSlowZoom 18s ease-in-out infinite alternate;
+      transform-origin: center center;
+    }
+    @keyframes heroSlowZoom {
+      0%   { transform: scale(1); }
+      100% { transform: scale(1.12); }
     }
     .hero-overlay {
       position: absolute;
@@ -297,9 +303,61 @@
       width: 100%;
       height: 100%;
       background:
-        linear-gradient(180deg, rgba(7,9,16,.4) 0%, rgba(7,9,16,0.95) 90%),
-        radial-gradient(circle at center, transparent 20%, rgba(7,9,16,.6) 100%);
+        linear-gradient(180deg, rgba(7,9,16,.05) 0%, rgba(7,9,16,.35) 55%, rgba(7,9,16,0.92) 94%),
+        radial-gradient(circle at 30% 25%, rgba(255,77,109,.12), transparent 45%),
+        radial-gradient(circle at 75% 65%, rgba(120,140,255,.10), transparent 50%),
+        radial-gradient(circle at center, transparent 25%, rgba(7,9,16,.35) 100%);
       z-index: 2;
+    }
+    .hero-scanlines {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,0.025) 0px,
+        rgba(255,255,255,0.025) 1px,
+        transparent 2px,
+        transparent 4px
+      );
+      mix-blend-mode: overlay;
+      opacity: .35;
+    }
+    .hero-dust-container {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .dust-mote {
+      position: absolute;
+      bottom: -10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(255,220,225,.5) 40%, transparent 75%);
+      animation-name: dustDrift, dustTwinkle;
+      animation-timing-function: linear, ease-in-out;
+      animation-iteration-count: infinite, infinite;
+      will-change: transform, opacity;
+    }
+    @keyframes dustDrift {
+      0%   { transform: translate(0, 0); }
+      100% { transform: translate(var(--dust-x, 30px), -115vh); }
+    }
+    @keyframes dustTwinkle {
+      0%, 100% { opacity: 0; }
+      15% { opacity: var(--dust-op, .6); }
+      50% { opacity: var(--dust-op, .6); }
+      85% { opacity: 0; }
+    }
+    .hero-frame {
+      position: absolute;
+      inset: 18px;
+      z-index: 3;
+      pointer-events: none;
+      border: 1px solid rgba(255,77,109,.25);
+      box-shadow: inset 0 0 60px rgba(255,77,109,.08);
     }
     .hero-content {
       position: relative;
@@ -622,6 +680,8 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
+      .hero-parallax-bg { animation-duration: 26s; }
+      .hero-frame { inset: 10px; }
       .site-header {
         top: 15px;
         padding: 12px 20px;
@@ -700,6 +760,9 @@
 <section class="hero" id="heroSection">
   <div class="hero-parallax-bg" id="parallaxBg"></div>
   <div class="hero-overlay"></div>
+  <div class="hero-scanlines"></div>
+  <div class="hero-dust-container" id="heroDust"></div>
+  <div class="hero-frame"></div>
   <div class="hero-content">
     <div class="hero-title-interactive" id="heroTitle">
       <div class="text-layer">AURADE <span class="aura-symbol"></span> TEAM</div>
@@ -918,6 +981,26 @@
       }, 30);
     }
   });
+
+  // ===== GENERATE HERO DUST (ambient floating motes over the photo) =====
+  const heroDust = document.getElementById('heroDust');
+  if (heroDust) {
+    const dustCount = window.innerWidth < 768 ? 22 : 40;
+    for (let i = 0; i < dustCount; i++) {
+      const mote = document.createElement('div');
+      mote.classList.add('dust-mote');
+      const size = Math.random() * 2.6 + 1; // 1px - 3.6px
+      mote.style.width = `${size}px`;
+      mote.style.height = `${size}px`;
+      mote.style.left = `${Math.random() * 100}%`;
+      mote.style.setProperty('--dust-x', `${(Math.random() * 80 - 40).toFixed(0)}px`);
+      mote.style.setProperty('--dust-op', (Math.random() * 0.5 + 0.35).toFixed(2));
+      const duration = Math.random() * 10 + 10; // 10s - 20s
+      mote.style.animationDuration = `${duration}s, ${duration}s`;
+      mote.style.animationDelay = `${(-Math.random() * duration).toFixed(2)}s, ${(-Math.random() * duration).toFixed(2)}s`;
+      heroDust.appendChild(mote);
+    }
+  }
 
   // ===== PARALLAX EFFECT =====
   const parallaxBg = document.getElementById('parallaxBg');

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title> AURADE | PORTFOLIO </title>
 
-  <!-- Премиальные sci-fi шрифты (Точь-в-точь как на главной) -->
+  <!-- Премиальные sci-fi шрифты -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syncopate:wght@400;700&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet">
@@ -57,6 +57,78 @@
         radial-gradient(circle at 85% 30%, rgba(120,140,255,.08), transparent 45%),
         #070910;
       overflow-x: hidden;
+    }
+
+    /* ===== INTRO LOADER ANIMATION ===== */
+    #introLoader {
+      position: fixed;
+      inset: 0;
+      background: #05060a;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #introLoader.loader-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loader-content {
+      text-align: center;
+    }
+    .loader-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: 0.3em;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+      position: relative;
+      animation: loaderPulse 1.5s ease-in-out infinite alternate;
+    }
+    .loader-logo span {
+      color: #ff4d6d;
+    }
+    .loader-bar-container {
+      width: 240px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 0 auto;
+      position: relative;
+    }
+    .loader-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: #ff4d6d;
+      box-shadow: 0 0 15px #ff4d6d;
+      transform: translateX(-100%);
+      animation: loaderProgress 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .loader-text {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: #718096;
+      margin-top: 1rem;
+      text-transform: uppercase;
+    }
+
+    @keyframes loaderProgress {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(-20%); }
+      100% { transform: translateX(0%); }
+    }
+    @keyframes loaderPulse {
+      0% { text-shadow: 0 0 10px rgba(255,77,109,0.2); }
+      100% { text-shadow: 0 0 25px rgba(255,77,109,0.7); }
     }
 
     @media (min-width: 769px) {
@@ -113,7 +185,7 @@
       box-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
     }
 
-    /* ===== BACKGROUND PARTICLES ===== */
+    /* ===== BACKGROUND DARK BLUE PARTICLES ===== */
     #particles-container {
       position: absolute;
       top: 0;
@@ -126,15 +198,15 @@
     }
     .particle {
       position: absolute;
-      background: radial-gradient(circle, rgba(255,77,109,0.4) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(50,80,160,0.5) 0%, rgba(20,35,80,0.2) 50%, transparent 70%);
       border-radius: 50%;
       pointer-events: none;
       animation: floatParticles 8s infinite linear;
     }
     @keyframes floatParticles {
       0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.6; }
+      10% { opacity: 0.5; }
+      90% { opacity: 0.5; }
       100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
     }
 
@@ -253,7 +325,6 @@
       text-decoration: none;
       transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
     .nav-links a::before {
       content: "";
       position: absolute;
@@ -322,7 +393,13 @@
       background-repeat: no-repeat;
       z-index: 0;
       will-change: transform;
-      filter: saturate(1.1) contrast(1.05);
+      filter: saturate(1.45) contrast(1.25) brightness(1.08);
+      animation: heroSlowZoom 18s ease-in-out infinite alternate;
+      transform-origin: center center;
+    }
+    @keyframes heroSlowZoom {
+      0%   { transform: scale(1); }
+      100% { transform: scale(1.12); }
     }
     .hero-overlay {
       position: absolute;
@@ -331,9 +408,62 @@
       width: 100%;
       height: 100%;
       background:
-        linear-gradient(180deg, rgba(7,9,16,.4) 0%, rgba(7,9,16,0.95) 90%),
-        radial-gradient(circle at center, transparent 20%, rgba(7,9,16,.6) 100%);
+        linear-gradient(180deg, rgba(7,9,16,.05) 0%, rgba(7,9,16,.35) 55%, rgba(7,9,16,0.92) 94%),
+        radial-gradient(circle at 30% 25%, rgba(255,77,109,.12), transparent 45%),
+        radial-gradient(circle at 75% 65%, rgba(120,140,255,.10), transparent 50%),
+        radial-gradient(circle at center, transparent 25%, rgba(7,9,16,.35) 100%);
       z-index: 2;
+    }
+    .hero-scanlines {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,0.025) 0px,
+        rgba(255,255,255,0.025) 1px,
+        transparent 2px,
+        transparent 4px
+      );
+      mix-blend-mode: overlay;
+      opacity: .35;
+    }
+    .hero-dust-container {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    /* Тёмно-синие мерцающие частицы пыли */
+    .dust-mote {
+      position: absolute;
+      bottom: -10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(90,130,220,.85) 0%, rgba(30,60,130,.4) 40%, transparent 75%);
+      animation-name: dustDrift, dustTwinkle;
+      animation-timing-function: linear, ease-in-out;
+      animation-iteration-count: infinite, infinite;
+      will-change: transform, opacity;
+    }
+    @keyframes dustDrift {
+      0%   { transform: translate(0, 0); }
+      100% { transform: translate(var(--dust-x, 30px), -115vh); }
+    }
+    @keyframes dustTwinkle {
+      0%, 100% { opacity: 0; }
+      15% { opacity: var(--dust-op, .5); }
+      50% { opacity: var(--dust-op, .5); }
+      85% { opacity: 0; }
+    }
+    .hero-frame {
+      position: absolute;
+      inset: 18px;
+      z-index: 3;
+      pointer-events: none;
+      border: 1px solid rgba(255,77,109,.25);
+      box-shadow: inset 0 0 60px rgba(255,77,109,.08);
     }
     .hero-content {
       position: relative;
@@ -441,7 +571,6 @@
       margin: 0 auto;
     }
 
-    /* Кнопки переключения под стиль навигации */
     .portfolio-nav {
       display: flex;
       justify-content: center;
@@ -490,7 +619,7 @@
       margin-bottom: 5rem;
     }
 
-    /* ===== PORTFOLIO CARDS WITH INSET COMPRESSION EFFECT ===== */
+    /* ===== PORTFOLIO CARDS ===== */
     .work-card {
       position: relative;
       background: linear-gradient(145deg, rgba(15,19,32,.7), rgba(10,12,18,.9));
@@ -505,7 +634,6 @@
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
     }
 
-    /* Сжимающийся фокусный скан обводки */
     .work-card::after {
       content: "";
       position: absolute;
@@ -655,6 +783,8 @@
       }
     }
     @media (max-width: 768px) {
+      .hero-parallax-bg { animation-duration: 26s; }
+      .hero-frame { inset: 10px; }
       .site-header {
         top: 15px;
         padding: 12px 20px;
@@ -698,6 +828,17 @@
 </head>
 <body>
 
+<!-- ===== INTRO LOADER ANIMATION ===== -->
+<div id="introLoader">
+  <div class="loader-content">
+    <div class="loader-logo">AURA<span>DE</span></div>
+    <div class="loader-bar-container">
+      <div class="loader-bar"></div>
+    </div>
+    <div class="loader-text">INITIALIZING SYSTEM...</div>
+  </div>
+</div>
+
 <div class="custom-cursor-dot" id="cursorDot"></div>
 <div class="custom-cursor-glow" id="cursorGlow"></div>
 
@@ -732,6 +873,9 @@
   <div id="particles-container"></div>
   <div class="hero-parallax-bg" id="parallaxBg"></div>
   <div class="hero-overlay"></div>
+  <div class="hero-scanlines"></div>
+  <div class="hero-dust-container" id="heroDust"></div>
+  <div class="hero-frame"></div>
   <div class="hero-content">
     
     <div class="hero-title-interactive reveal" id="heroTitle">
@@ -809,6 +953,35 @@
 </footer>
 
 <script>
+  // ===== INTRO LOADER LOGIC (RELOAD DETECTION) =====
+  (function() {
+    const loader = document.getElementById('introLoader');
+    if (!loader) return;
+
+    let isReload = false;
+    if (performance.navigation) {
+      isReload = performance.navigation.type === performance.navigation.TYPE_RELOAD;
+    } else {
+      const entries = performance.getEntriesByType('navigation');
+      if (entries.length > 0 && entries[0].type === 'reload') {
+        isReload = true;
+      }
+    }
+
+    if (!isReload && sessionStorage.getItem('aurade_seen')) {
+      loader.remove();
+    } else {
+      sessionStorage.setItem('aurade_seen', 'true');
+      
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          loader.classList.add('loader-hidden');
+          setTimeout(() => loader.remove(), 600);
+        }, 1200);
+      });
+    }
+  })();
+
   // ===== CUSTOM CURSOR =====
   const cursorDot = document.getElementById('cursorDot');
   const cursorGlow = document.getElementById('cursorGlow');
@@ -867,7 +1040,6 @@
       card.style.setProperty('--mouse-y', `${y}px`);
     });
 
-    // Клик по всей карточке перенаправляет на страницу проекта
     card.addEventListener('click', function(e) {
       if (e.target.closest('a')) return;
       const link = this.querySelector('.work-link');
@@ -900,6 +1072,26 @@
       }, 30);
     }
   });
+
+  // ===== GENERATE HERO DUST =====
+  const heroDust = document.getElementById('heroDust');
+  if (heroDust) {
+    const dustCount = window.innerWidth < 768 ? 22 : 40;
+    for (let i = 0; i < dustCount; i++) {
+      const mote = document.createElement('div');
+      mote.classList.add('dust-mote');
+      const size = Math.random() * 2.6 + 1;
+      mote.style.width = `${size}px`;
+      mote.style.height = `${size}px`;
+      mote.style.left = `${Math.random() * 100}%`;
+      mote.style.setProperty('--dust-x', `${(Math.random() * 80 - 40).toFixed(0)}px`);
+      mote.style.setProperty('--dust-op', (Math.random() * 0.5 + 0.35).toFixed(2));
+      const duration = Math.random() * 10 + 10;
+      mote.style.animationDuration = `${duration}s, ${duration}s`;
+      mote.style.animationDelay = `${(-Math.random() * duration).toFixed(2)}s, ${(-Math.random() * duration).toFixed(2)}s`;
+      heroDust.appendChild(mote);
+    }
+  }
 
   // ===== GENERATE BG PARTICLES =====
   const particlesContainer = document.getElementById('particles-container');
