@@ -482,18 +482,21 @@
       margin-bottom: 3rem;
     }
 
+    /* ===== REFINED BUTTON-LIKE SERVICE CARDS ===== */
     .service-card {
-      background: linear-gradient(145deg, rgba(15,19,32,.75), rgba(10,12,18,.9));
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: linear-gradient(135deg, rgba(18, 23, 38, 0.9), rgba(10, 12, 18, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
-      padding: 2rem 1.5rem;
+      padding: 2.2rem 1.5rem;
       text-align: center;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    /* Cyberpunk neon corner cuts / borders */
     .service-card::before {
       content: "";
       position: absolute;
@@ -501,39 +504,81 @@
       left: 0;
       width: 100%;
       height: 3px;
-      background: linear-gradient(90deg, #ff4d6d, #9aa9ff);
-      opacity: 0.3;
-      transition: opacity 0.3s ease;
+      background: linear-gradient(90deg, #ff4d6d, #788cff);
+      opacity: 0.4;
+      transition: opacity 0.3s ease, height 0.3s ease;
     }
 
-    .service-card:hover, .service-card.selected {
-      transform: translateY(-5px);
-      border-color: rgba(255, 77, 109, 0.5);
-      box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15);
+    /* Glowing backdrop reflection on hover */
+    .service-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 77, 109, 0.15), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: rgba(255, 77, 109, 0.6);
+      box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+      height: 4px;
+    }
+
+    .service-card:hover::after {
+      opacity: 1;
+    }
+
+    .service-card.selected {
+      transform: translateY(-4px);
+      border-color: #ff4d6d;
+      background: linear-gradient(135deg, rgba(28, 33, 52, 0.95), rgba(15, 19, 32, 0.98));
+      box-shadow: 0 0 30px rgba(255, 77, 109, 0.35), inset 0 0 15px rgba(255, 77, 109, 0.1);
     }
 
     .service-card.selected::before {
       opacity: 1;
+      height: 5px;
+      background: linear-gradient(90deg, #ff4d6d, #ffffff, #ff4d6d);
+    }
+
+    .service-card.selected::after {
+      opacity: 1;
     }
 
     .service-icon {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       color: #ff4d6d;
       margin-bottom: 1rem;
+      filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.4));
+      transition: transform 0.3s ease;
+    }
+
+    .service-card:hover .service-icon {
+      transform: scale(1.1) rotate(5deg);
     }
 
     .service-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
       letter-spacing: 0.05em;
     }
 
     .service-preview-price {
       font-size: 0.85rem;
       color: #9aa9ff;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 10px rgba(154, 169, 255, 0.3);
     }
 
     /* Details & Form Container */
@@ -574,10 +619,11 @@
     }
 
     .details-price {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: #ff4d6d;
       font-weight: 700;
       font-family: 'Space Grotesk', sans-serif;
+      text-shadow: 0 0 12px rgba(255, 77, 109, 0.4);
     }
 
     .details-desc {
@@ -585,6 +631,48 @@
       color: #b9c3e6;
       margin-bottom: 2rem;
       line-height: 1.8;
+    }
+
+    /* ===== CONFIGURATOR OPTIONS (FOR 3D MODELS) ===== */
+    .configurator-options {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1.2rem;
+      background: rgba(7, 9, 16, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+    }
+    .configurator-options.active {
+      display: grid;
+    }
+    .config-checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: #d9e2f5;
+      cursor: pointer;
+      position: relative;
+      padding: 6px;
+    }
+    .config-checkbox-label input {
+      accent-color: #ff4d6d;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+    .config-price-tag {
+      color: #9aa9ff;
+      margin-left: auto;
+      font-size: 0.75rem;
+    }
+
+    @media (max-width: 600px) {
+      .configurator-options {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Form styling */
@@ -767,30 +855,42 @@
   <div class="container">
     <h2 class="section-title">SELECT A POSITION</h2>
     
-    <!-- Service selection cards -->
+    <!-- Service selection cards (Enhanced Button-like Design) -->
     <div class="services-grid">
       <div class="service-card" data-service="short">
         <div class="service-icon"><i class="fas fa-bolt"></i></div>
         <div class="service-title">Short Animation</div>
-        <div class="service-preview-price">from $150</div>
+        <div class="service-preview-price">$10</div>
       </div>
       
       <div class="service-card" data-service="full">
         <div class="service-icon"><i class="fas fa-film"></i></div>
         <div class="service-title">Full Animation</div>
-        <div class="service-preview-price">from $500</div>
+        <div class="service-preview-price">$40 - $60</div>
       </div>
       
       <div class="service-card" data-service="clip">
         <div class="service-icon"><i class="fas fa-video"></i></div>
         <div class="service-title">Music Video / Clip</div>
-        <div class="service-preview-price">from $1200</div>
+        <div class="service-preview-price">$30</div>
+      </div>
+
+      <div class="service-card" data-service="render">
+        <div class="service-icon"><i class="fas fa-image"></i></div>
+        <div class="service-title">Render</div>
+        <div class="service-preview-price">$5</div>
+      </div>
+
+      <div class="service-card" data-service="renderGroup">
+        <div class="service-icon"><i class="fas fa-images"></i></div>
+        <div class="service-title">Render Group</div>
+        <div class="service-preview-price">$10 - $20</div>
       </div>
       
       <div class="service-card" data-service="models">
         <div class="service-icon"><i class="fas fa-cube"></i></div>
         <div class="service-title">3D Models</div>
-        <div class="service-preview-price">from $80</div>
+        <div class="service-preview-price">$10 - $50</div>
       </div>
     </div>
 
@@ -804,30 +904,44 @@
         Detailed description of the selected position and included options.
       </div>
 
-      <!-- Классическая HTML форма без JS-перехвата -->
+      <!-- Additional options for 3D Models -->
+      <div class="configurator-options" id="configuratorOptions">
+        <label class="config-checkbox-label">
+          <input type="checkbox" id="addRig" value="10">
+          <span>Add Rig</span>
+          <span class="config-price-tag">+$10</span>
+        </label>
+        <label class="config-checkbox-label">
+          <input type="checkbox" id="addTextures" value="5">
+          <span>Add Textures</span>
+          <span class="config-price-tag">+$5</span>
+        </label>
+      </div>
+
+      <!-- Classic HTML Form without JS Interception -->
       <form class="order-form" action="https://api.web3forms.com/submit" method="POST">
-        <!-- Ключ доступа Web3Forms -->
+        <!-- Web3Forms Access Key -->
         <input type="hidden" name="access_key" value="d1109b23-1b31-4291-b30f-36189b287e0d">
         
-        <!-- Необязательно: тема письма для удобства -->
-        <input type="hidden" name="subject" value="Новый заказ с сайта AURADE">
+        <!-- Optional: Subject for convenience -->
+        <input type="hidden" name="subject" value="New Order from AURADE Website">
 
-        <!-- Поле для передачи выбранной услуги -->
-        <input type="hidden" id="selectedServiceInput" name="Выбранная позиция" value="">
+        <!-- Input for passing selected service and total price -->
+        <input type="hidden" id="selectedServiceInput" name="Selected Position" value="">
         
         <div class="form-group">
-          <label for="clientEmail">ВАША ПОЧТА (EMAIL)</label>
+          <label for="clientEmail">YOUR EMAIL</label>
           <input type="email" id="clientEmail" name="email" class="form-control" required placeholder="name@example.com">
         </div>
 
         <div class="form-group">
-          <label for="clientDiscord">ВАШ DISCORD</label>
-          <input type="text" id="clientDiscord" name="Discord" class="form-control" required placeholder="username#0000 или username">
+          <label for="clientDiscord">YOUR DISCORD</label>
+          <input type="text" id="clientDiscord" name="Discord" class="form-control" required placeholder="username#0000 or username">
         </div>
 
         <div class="form-group">
-          <label for="clientDetails">ПОДРОБНОСТИ О ЗАКАЗЕ</label>
-          <textarea id="clientDetails" name="Подробности заказа" class="form-control" placeholder="Опишите вашу задачу, пожелания и детали..."></textarea>
+          <label for="clientDetails">ORDER DETAILS</label>
+          <textarea id="clientDetails" name="Order Details" class="form-control" placeholder="Describe your task, preferences, and details..."></textarea>
         </div>
 
         <button type="submit" class="submit-btn">
@@ -847,23 +961,46 @@
   const serviceData = {
     short: {
       title: "Short Animation",
-      price: "from $150",
+      price: "$10",
+      numericPrice: 10,
+      isRange: false,
       desc: "Dynamic visual clips up to 10 seconds long. Perfectly suited for promos, logos, loopers, banners, and avatars."
     },
     full: {
       title: "Full Animation",
-      price: "from $500",
+      price: "$40 - $60",
+      numericPrice: 50,
+      isRange: true,
       desc: "Full narrative or presentation animation videos ranging from 30 seconds to 1 minute. Includes detailed concept development, sound design, and high-resolution rendering."
     },
     clip: {
       title: "Music Video / Clip",
-      price: "from $1200",
+      price: "$30",
+      numericPrice: 30,
+      isRange: false,
       desc: "Large-scale musical or branding video clip with a full production cycle: storyboard, 3D/2D graphics, complex composition, and special effects."
+    },
+    render: {
+      title: "Render",
+      price: "$5",
+      numericPrice: 5,
+      isRange: false,
+      desc: "Single high-quality graphic render with professional lighting, composition, and post-processing effects."
+    },
+    renderGroup: {
+      title: "Render Group",
+      price: "$10 - $20",
+      numericPrice: 15,
+      isRange: true,
+      desc: "A package/group of high-quality renders sharing a unified stylistic direction and atmosphere."
     },
     models: {
       title: "3D Models",
-      price: "from $80",
-      desc: "Creation of detailed 3D models of any complexity (characters, environment, hard-surface) with turn-key texturing."
+      price: "$10 - $50",
+      numericPrice: 30,
+      isRange: true,
+      isConfigurable: true,
+      desc: "Creation of detailed 3D models of any complexity (characters, environment, hard-surface). Choose additional options like Rig and Textures below."
     }
   };
 
@@ -874,6 +1011,38 @@
   const detailsPrice = document.getElementById('detailsPrice');
   const detailsDesc = document.getElementById('detailsDesc');
   const selectedServiceInput = document.getElementById('selectedServiceInput');
+  const configuratorOptions = document.getElementById('configuratorOptions');
+  const addRigCheckbox = document.getElementById('addRig');
+  const addTexturesCheckbox = document.getElementById('addTextures');
+
+  let currentSelectedService = null;
+
+  function updatePriceDisplay() {
+    if (!currentSelectedService) return;
+    const data = serviceData[currentSelectedService];
+
+    if (data.isConfigurable) {
+      let baseMin = 10;
+      let baseMax = 50;
+      let calculatedText = `$${baseMin} - $50`;
+
+      let extrasArr = [];
+      if (addRigCheckbox.checked) extrasArr.push("Rig +$10");
+      if (addTexturesCheckbox.checked) extrasArr.push("Textures +$5");
+
+      let extraAddonPrice = (addRigCheckbox.checked ? 10 : 0) + (addTexturesCheckbox.checked ? 5 : 0);
+      
+      if (extraAddonPrice > 0) {
+        calculatedText = `$${baseMin + extraAddonPrice} - $${baseMax + extraAddonPrice}`;
+      }
+      
+      detailsPrice.innerText = calculatedText;
+      selectedServiceInput.value = `${data.title} [Price: ${calculatedText}] ${extrasArr.length > 0 ? '(' + extrasArr.join(', ') + ')' : ''}`;
+    } else {
+      detailsPrice.innerText = data.price;
+      selectedServiceInput.value = `${data.title} [Price: ${data.price}]`;
+    }
+  }
 
   cards.forEach(card => {
     card.addEventListener('click', () => {
@@ -881,19 +1050,31 @@
       card.classList.add('selected');
 
       const serviceKey = card.getAttribute('data-service');
+      currentSelectedService = serviceKey;
       const data = serviceData[serviceKey];
 
       if (data) {
         detailsTitle.innerText = data.title;
-        detailsPrice.innerText = data.price;
         detailsDesc.innerText = data.desc;
-        selectedServiceInput.value = data.title;
+
+        if (data.isConfigurable) {
+          configuratorOptions.classList.add('active');
+          addRigCheckbox.checked = false;
+          addTexturesCheckbox.checked = false;
+        } else {
+          configuratorOptions.classList.remove('active');
+        }
+
+        updatePriceDisplay();
 
         orderPanel.classList.add('active');
         orderPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     });
   });
+
+  addRigCheckbox.addEventListener('change', updatePriceDisplay);
+  addTexturesCheckbox.addEventListener('change', updatePriceDisplay);
 
   // ===== CUSTOM CURSOR =====
   const cursorDot = document.getElementById('cursorDot');
