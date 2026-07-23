@@ -649,35 +649,9 @@
       gap: 10px;
     }
 
-    .submit-btn:hover:not(:disabled) {
+    .submit-btn:hover {
       background: linear-gradient(135deg, #ff6b88, #ff4d6d);
       box-shadow: 0 0 25px rgba(255, 77, 109, 0.7);
-    }
-
-    .submit-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* Feedback messages */
-    .form-message {
-      display: none;
-      font-size: 0.9rem;
-      margin-top: 1rem;
-      padding: 10px 14px;
-      border-radius: 6px;
-    }
-    .form-message.success {
-      display: block;
-      color: #4ade80;
-      background: rgba(74, 222, 128, 0.1);
-      border: 1px solid rgba(74, 222, 128, 0.3);
-    }
-    .form-message.error {
-      display: block;
-      color: #ff4d6d;
-      background: rgba(255, 77, 109, 0.1);
-      border: 1px solid rgba(255, 77, 109, 0.3);
     }
 
     /* ===== FOOTER ===== */
@@ -820,7 +794,7 @@
       </div>
     </div>
 
-    <!-- Details & Form Container -->
+    <!-- Details & Form Container (HTML POST METHOD) -->
     <div class="order-panel" id="orderPanel">
       <div class="details-header">
         <div class="details-title" id="detailsTitle">Service Title</div>
@@ -830,17 +804,16 @@
         Detailed description of the selected position and included options.
       </div>
 
-      <!-- 
-        ИНСТРУКЦИЯ ПО WEB3FORMS:
-        1. Перейдите на сайт https://web3forms.com/
-        2. Введите свою почту и получите ключ.
-        3. Замените YOUR_WEB3FORMS_ACCESS_KEY на полученный ключ.
-      -->
-      <form class="order-form" id="orderForm" action="https://api.web3forms.com/submit" method="POST">
-        <!-- Скрытые служебные поля -->
-        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+      <!-- Классическая HTML форма без JS-перехвата -->
+      <form class="order-form" action="https://api.web3forms.com/submit" method="POST">
+        <!-- Ключ доступа Web3Forms -->
+        <input type="hidden" name="access_key" value="d1109b23-1b31-4291-b30f-36189b287e0d">
+        
+        <!-- Необязательно: тема письма для удобства -->
+        <input type="hidden" name="subject" value="Новый заказ с сайта AURADE">
+
+        <!-- Поле для передачи выбранной услуги -->
         <input type="hidden" id="selectedServiceInput" name="Выбранная позиция" value="">
-        <input type="hidden" name="subject" value="Новый заказ с сайта AURADE!">
         
         <div class="form-group">
           <label for="clientEmail">ВАША ПОЧТА (EMAIL)</label>
@@ -857,10 +830,9 @@
           <textarea id="clientDetails" name="Подробности заказа" class="form-control" placeholder="Опишите вашу задачу, пожелания и детали..."></textarea>
         </div>
 
-        <button type="submit" id="submitBtn" class="submit-btn">
+        <button type="submit" class="submit-btn">
           <span>SEND REQUEST</span>
         </button>
-        <div class="form-message" id="formMessage"></div>
       </form>
     </div>
   </div>
@@ -922,57 +894,6 @@
       }
     });
   });
-
-  // ===== ROBUST ASYNC FORM SUBMISSION HANDLER =====
-  const orderForm = document.getElementById('orderForm');
-  const submitBtn = document.getElementById('submitBtn');
-  const formMessage = document.getElementById('formMessage');
-
-  orderForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById('clientEmail').value.trim();
-    const discord = document.getElementById('clientDiscord').value.trim();
-    if (!email || !discord) {
-      showMsg('Please fill in your email and Discord.', 'error');
-      return;
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span>SENDING...</span>';
-    formMessage.style.display = 'none';
-
-    const formData = new FormData(orderForm);
-
-    try {
-      const response = await fetch(orderForm.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        showMsg('Request sent successfully! We will get back to you shortly.', 'success');
-        orderForm.reset();
-      } else {
-        showMsg(result.message || 'Oops! Something went wrong. Please try again later.', 'error');
-      }
-    } catch (error) {
-      showMsg('Network error. Please check your connection and try again.', 'error');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<span>SEND REQUEST</span>';
-    }
-  });
-
-  function showMsg(text, type) {
-    formMessage.className = `form-message ${type}`;
-    formMessage.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${text}`;
-  }
 
   // ===== CUSTOM CURSOR =====
   const cursorDot = document.getElementById('cursorDot');
