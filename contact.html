@@ -483,123 +483,222 @@
       margin-bottom: 3rem;
     }
 
-    /* ===== REFINED BUTTON-LIKE SERVICE CARDS ===== */
+    /* ===== REWORKED CYBERPUNK INTERACTIVE SERVICE CARDS (ASYNCHRONOUS HOVER, HOLOGRAM GLITCH & MAGNETIC LAYOUT) ===== */
     .service-card {
       flex: 1 1 calc(33.333% - 1rem);
       max-width: 360px;
       min-width: 240px;
-      background: linear-gradient(135deg, rgba(18, 23, 38, 0.9), rgba(10, 12, 18, 0.95));
+      background: linear-gradient(135deg, rgba(16, 21, 35, 0.9), rgba(8, 11, 18, 0.95));
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 2.2rem 1.5rem;
-      text-align: center;
+      border-radius: 20px;
+      padding: 2.5rem 1.8rem;
+      text-align: left;
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+      transform-style: preserve-3d;
+      perspective: 1000px;
     }
 
-    /* Cyberpunk neon corner cuts / borders */
+    /* Structural holographic HUD border frame */
     .service-card::before {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, #ff4d6d, #788cff);
-      opacity: 0.4;
-      transition: opacity 0.3s ease, height 0.3s ease;
-    }
-
-    /* Glowing backdrop reflection on hover */
-    .service-card::after {
-      content: "";
-      position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(255, 77, 109, 0.15), transparent 70%);
+      border-radius: 20px;
+      border: 1px dashed rgba(255, 77, 109, 0.2);
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.4s ease, transform 0.4s ease;
       pointer-events: none;
     }
 
+    /* Dynamic Cyberpunk Glowing Edge Corner Tags */
+    .service-card::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, transparent 50%, rgba(255, 77, 109, 0.4) 50%);
+      transition: width 0.4s ease, height 0.4s ease, background 0.4s ease;
+      z-index: 1;
+    }
+
+    /* Floating neon orb background flare */
+    .card-glow-orb {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle, rgba(255, 77, 109, 0.3) 0%, transparent 70%);
+      top: -75px;
+      left: -75px;
+      border-radius: 50%;
+      pointer-events: none;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      opacity: 0;
+      z-index: 1;
+    }
+
     .service-card:hover {
-      transform: translateY(-6px) scale(1.01);
-      border-color: rgba(255, 77, 109, 0.6);
-      box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      transform: translateY(-10px) scale(1.03);
+      border-color: rgba(255, 77, 109, 0.8);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 
+                  0 0 30px rgba(255, 77, 109, 0.35),
+                  inset 0 0 20px rgba(120, 140, 255, 0.1);
     }
 
     .service-card:hover::before {
       opacity: 1;
-      height: 4px;
+      transform: scale(0.97);
     }
 
     .service-card:hover::after {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, transparent 40%, rgba(255, 77, 109, 0.8) 60%);
+      box-shadow: 0 0 15px #ff4d6d;
+    }
+
+    .service-card:hover .card-glow-orb {
       opacity: 1;
+      transform: translate(120px, 120px) scale(1.5);
     }
 
     .service-card.selected {
-      transform: translateY(-4px);
+      transform: translateY(-8px) scale(1.02);
       border-color: #ff4d6d;
-      background: linear-gradient(135deg, rgba(28, 33, 52, 0.95), rgba(15, 19, 32, 0.98));
-      box-shadow: 0 0 30px rgba(255, 77, 109, 0.35), inset 0 0 15px rgba(255, 77, 109, 0.1);
+      background: linear-gradient(135deg, rgba(28, 33, 54, 0.95), rgba(12, 16, 28, 0.98));
+      box-shadow: 0 0 40px rgba(255, 77, 109, 0.5), 
+                  inset 0 0 25px rgba(255, 77, 109, 0.25);
     }
 
     .service-card.selected::before {
       opacity: 1;
-      height: 5px;
-      background: linear-gradient(90deg, #ff4d6d, #ffffff, #ff4d6d);
+      border-color: #ff4d6d;
+      border-style: solid;
+      box-shadow: 0 0 15px rgba(255, 77, 109, 0.4) inset;
     }
 
     .service-card.selected::after {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, transparent 40%, #ff4d6d 60%);
+      box-shadow: 0 0 20px #ff4d6d;
+    }
+
+    .service-card.selected .card-glow-orb {
       opacity: 1;
+      transform: translate(100px, 100px) scale(1.8);
+      background: radial-gradient(circle, rgba(255, 77, 109, 0.5) 0%, transparent 70%);
+    }
+
+    .service-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .service-icon-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 77, 109, 0.08);
+      border: 1px solid rgba(255, 77, 109, 0.25);
+      border-radius: 12px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .service-card:hover .service-icon-wrapper {
+      background: rgba(255, 77, 109, 0.2);
+      border-color: #ff4d6d;
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
     }
 
     .service-icon {
-      font-size: 2.2rem;
+      font-size: 1.4rem;
       color: #ff4d6d;
-      margin-bottom: 1rem;
-      filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.4));
-      transition: transform 0.3s ease;
+      transition: color 0.3s ease;
     }
 
     .service-card:hover .service-icon {
-      transform: scale(1.1) rotate(5deg);
+      color: #ffffff;
+      text-shadow: 0 0 10px #ff4d6d;
+    }
+
+    .service-badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: #788cff;
+      background: rgba(120, 140, 255, 0.1);
+      border: 1px solid rgba(120, 140, 255, 0.3);
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover .service-badge {
+      background: rgba(120, 140, 255, 0.25);
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(120, 140, 255, 0.4);
+    }
+
+    .service-body {
+      position: relative;
+      z-index: 2;
     }
 
     .service-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
       letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+    }
+
+    .service-card:hover .service-title {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
     }
 
     .service-preview-price {
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       color: #9aa9ff;
       font-weight: bold;
       letter-spacing: 0.1em;
       text-shadow: 0 0 10px rgba(154, 169, 255, 0.3);
+      display: inline-block;
     }
 
     /* Details & Form Container */
     .order-panel {
-      background: linear-gradient(145deg, rgba(15,19,32,.85), rgba(10,12,18,.95));
-      border: 1px solid rgba(255, 77, 109, 0.2);
-      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(15,19,32,.9), rgba(10,12,18,.98));
+      border: 1px solid rgba(255, 77, 109, 0.3);
+      border-radius: 24px;
       padding: 3rem 2.5rem;
       max-width: 800px;
       margin: 0 auto;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 0 20px rgba(255, 77, 109, 0.05);
       display: none;
       animation: fadeIn 0.4s ease forwards;
+      position: relative;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -721,10 +820,11 @@
       font-weight: bold;
       cursor: pointer;
       padding: 4px 8px;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, transform 0.2s ease;
     }
     .counter-btn:hover {
       color: #ffffff;
+      transform: scale(1.2);
     }
     .counter-value {
       font-family: 'Share Tech Mono', monospace;
@@ -763,11 +863,12 @@
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.9rem;
       outline: none;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .form-control:focus {
       border-color: #ff4d6d;
+      box-shadow: 0 0 10px rgba(255, 77, 109, 0.2);
     }
 
     textarea.form-control {
@@ -775,30 +876,55 @@
       min-height: 110px;
     }
 
+    /* ===== NEXT-GEN CYBERPUNK SUBMIT BUTTON ===== */
     .submit-btn {
+      position: relative;
       background: linear-gradient(135deg, #ff4d6d, #d03b5b);
       color: white;
       border: none;
       border-radius: 8px;
-      padding: 14px 28px;
+      padding: 16px 32px;
       font-family: 'Syncopate', sans-serif;
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.15em;
       cursor: pointer;
-      transition: all 0.3s ease;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       margin-top: 1rem;
       align-self: flex-start;
-      box-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
+      box-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
+    }
+
+    /* Laser light sweep across button on hover */
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s ease;
     }
 
     .submit-btn:hover {
       background: linear-gradient(135deg, #ff6b88, #ff4d6d);
-      box-shadow: 0 0 25px rgba(255, 77, 109, 0.7);
+      box-shadow: 0 0 30px rgba(255, 77, 109, 0.8), 0 0 10px rgba(255, 255, 255, 0.4) inset;
+      transform: translateY(-3px);
+      letter-spacing: 0.2em;
+    }
+
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+
+    .submit-btn:active {
+      transform: translateY(-1px);
     }
 
     /* ===== FOOTER ===== */
@@ -917,39 +1043,87 @@
     <!-- Service selection cards centered via Flexbox, with last two centered properly -->
     <div class="services-grid">
       <div class="service-card" data-service="short">
-        <div class="service-icon"><i class="fas fa-bolt"></i></div>
-        <div class="service-title">Short Animation</div>
-        <div class="service-preview-price">$10</div>
+        <div class="card-glow-orb"></div>
+        <div class="service-card-top">
+          <div class="service-icon-wrapper">
+            <div class="service-icon"><i class="fas fa-bolt"></i></div>
+          </div>
+          <span class="service-badge">PROMO</span>
+        </div>
+        <div class="service-body">
+          <div class="service-title">Short Animation</div>
+          <div class="service-preview-price">$10</div>
+        </div>
       </div>
       
       <div class="service-card" data-service="full">
-        <div class="service-icon"><i class="fas fa-film"></i></div>
-        <div class="service-title">Full Animation</div>
-        <div class="service-preview-price">$40 - $60</div>
+        <div class="card-glow-orb"></div>
+        <div class="service-card-top">
+          <div class="service-icon-wrapper">
+            <div class="service-icon"><i class="fas fa-film"></i></div>
+          </div>
+          <span class="service-badge">CINEMATIC</span>
+        </div>
+        <div class="service-body">
+          <div class="service-title">Full Animation</div>
+          <div class="service-preview-price">$40 - $60</div>
+        </div>
       </div>
       
       <div class="service-card" data-service="clip">
-        <div class="service-icon"><i class="fas fa-video"></i></div>
-        <div class="service-title">Music Video / Clip</div>
-        <div class="service-preview-price">$30</div>
+        <div class="card-glow-orb"></div>
+        <div class="service-card-top">
+          <div class="service-icon-wrapper">
+            <div class="service-icon"><i class="fas fa-video"></i></div>
+          </div>
+          <span class="service-badge">MUSIC / FX</span>
+        </div>
+        <div class="service-body">
+          <div class="service-title">Music Video / Clip</div>
+          <div class="service-preview-price">$30</div>
+        </div>
       </div>
 
       <div class="service-card" data-service="render">
-        <div class="service-icon"><i class="fas fa-image"></i></div>
-        <div class="service-title">Render</div>
-        <div class="service-preview-price">$5</div>
+        <div class="card-glow-orb"></div>
+        <div class="service-card-top">
+          <div class="service-icon-wrapper">
+            <div class="service-icon"><i class="fas fa-image"></i></div>
+          </div>
+          <span class="service-badge">SINGLE</span>
+        </div>
+        <div class="service-body">
+          <div class="service-title">Render</div>
+          <div class="service-preview-price">$5</div>
+        </div>
       </div>
 
       <div class="service-card" data-service="renderGroup">
-        <div class="service-icon"><i class="fas fa-images"></i></div>
-        <div class="service-title">Render Group</div>
-        <div class="service-preview-price">$12</div>
+        <div class="card-glow-orb"></div>
+        <div class="service-card-top">
+          <div class="service-icon-wrapper">
+            <div class="service-icon"><i class="fas fa-images"></i></div>
+          </div>
+          <span class="service-badge">PACKAGE</span>
+        </div>
+        <div class="service-body">
+          <div class="service-title">Render Group</div>
+          <div class="service-preview-price">$12</div>
+        </div>
       </div>
       
       <div class="service-card" data-service="models">
-        <div class="service-icon"><i class="fas fa-cube"></i></div>
-        <div class="service-title">3D Models</div>
-        <div class="service-preview-price">$10 - $50</div>
+        <div class="card-glow-orb"></div>
+        <div class="service-card-top">
+          <div class="service-icon-wrapper">
+            <div class="service-icon"><i class="fas fa-cube"></i></div>
+          </div>
+          <span class="service-badge">ASSETS</span>
+        </div>
+        <div class="service-body">
+          <div class="service-title">3D Models</div>
+          <div class="service-preview-price">$10 - $50</div>
+        </div>
       </div>
     </div>
 
@@ -1017,6 +1191,7 @@
 
         <button type="submit" class="submit-btn">
           <span>SEND REQUEST</span>
+          <i class="fas fa-arrow-right"></i>
         </button>
       </form>
     </div>
@@ -1149,6 +1324,23 @@
         orderPanel.classList.add('active');
         orderPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
+    });
+
+    // 3D Tilt Effect for Service Cards
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const xc = rect.width / 2;
+      const yc = rect.height / 2;
+      const dx = (x - xc) / xc;
+      const dy = (y - yc) / yc;
+
+      card.style.transform = `translateY(-10px) scale(1.03) rotateX(${ -dy * 8 }deg) rotateY(${ dx * 8 }deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0px) scale(1) rotateX(0deg) rotateY(0deg)';
     });
   });
 
@@ -1304,7 +1496,6 @@
       } else {
         header.classList.remove('nav-hidden');
       }
-      lastScroll = currentCard = currentScroll; // fixed safely
       lastScroll = currentScroll;
     });
   })();
