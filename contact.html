@@ -474,16 +474,20 @@
       text-shadow: 0 0 10px rgba(255,77,109,0.3);
     }
 
-    /* Grid for service positions */
+    /* Grid for service positions centered using Flexbox, with last two centered */
     .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 1.5rem;
       margin-bottom: 3rem;
     }
 
     /* ===== REFINED BUTTON-LIKE SERVICE CARDS ===== */
     .service-card {
+      flex: 1 1 calc(33.333% - 1rem);
+      max-width: 360px;
+      min-width: 240px;
       background: linear-gradient(135deg, rgba(18, 23, 38, 0.9), rgba(10, 12, 18, 0.95));
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
@@ -675,6 +679,61 @@
       }
     }
 
+    /* ===== RENDER GROUP CONFIGURATOR (QUANTITY SELECTOR) ===== */
+    .render-group-options {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: rgba(7, 9, 16, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+    }
+    .render-group-options.active {
+      display: flex;
+    }
+    .counter-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .counter-label {
+      font-size: 0.8rem;
+      color: #9aa9ff;
+      letter-spacing: 0.1em;
+    }
+    .counter-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(7, 9, 16, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 4px 12px;
+    }
+    .counter-btn {
+      background: transparent;
+      border: none;
+      color: #ff4d6d;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 4px 8px;
+      transition: color 0.3s ease;
+    }
+    .counter-btn:hover {
+      color: #ffffff;
+    }
+    .counter-value {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.1rem;
+      color: #fff;
+      min-width: 25px;
+      text-align: center;
+    }
+
     /* Form styling */
     .order-form {
       display: flex;
@@ -855,7 +914,7 @@
   <div class="container">
     <h2 class="section-title">SELECT A POSITION</h2>
     
-    <!-- Service selection cards (Enhanced Button-like Design) -->
+    <!-- Service selection cards centered via Flexbox, with last two centered properly -->
     <div class="services-grid">
       <div class="service-card" data-service="short">
         <div class="service-icon"><i class="fas fa-bolt"></i></div>
@@ -884,7 +943,7 @@
       <div class="service-card" data-service="renderGroup">
         <div class="service-icon"><i class="fas fa-images"></i></div>
         <div class="service-title">Render Group</div>
-        <div class="service-preview-price">$10 - $20</div>
+        <div class="service-preview-price">$12</div>
       </div>
       
       <div class="service-card" data-service="models">
@@ -916,6 +975,18 @@
           <span>Add Textures</span>
           <span class="config-price-tag">+$5</span>
         </label>
+      </div>
+
+      <!-- Options for Render Group (Quantity Selector) -->
+      <div class="render-group-options" id="renderGroupOptions">
+        <div class="counter-wrapper">
+          <span class="counter-label">NUMBER OF RENDERS (MIN 3, MAX 10)</span>
+          <div class="counter-controls">
+            <button type="button" class="counter-btn" id="decreaseRenders">-</button>
+            <span class="counter-value" id="renderCountDisplay">3</span>
+            <button type="button" class="counter-btn" id="increaseRenders">+</button>
+          </div>
+        </div>
       </div>
 
       <!-- Classic HTML Form without JS Interception -->
@@ -962,43 +1033,32 @@
     short: {
       title: "Short Animation",
       price: "$10",
-      numericPrice: 10,
-      isRange: false,
       desc: "Dynamic visual clips up to 10 seconds long. Perfectly suited for promos, logos, loopers, banners, and avatars."
     },
     full: {
       title: "Full Animation",
       price: "$40 - $60",
-      numericPrice: 50,
-      isRange: true,
       desc: "Full narrative or presentation animation videos ranging from 30 seconds to 1 minute. Includes detailed concept development, sound design, and high-resolution rendering."
     },
     clip: {
       title: "Music Video / Clip",
       price: "$30",
-      numericPrice: 30,
-      isRange: false,
       desc: "Large-scale musical or branding video clip with a full production cycle: storyboard, 3D/2D graphics, complex composition, and special effects."
     },
     render: {
       title: "Render",
       price: "$5",
-      numericPrice: 5,
-      isRange: false,
       desc: "Single high-quality graphic render with professional lighting, composition, and post-processing effects."
     },
     renderGroup: {
       title: "Render Group",
-      price: "$10 - $20",
-      numericPrice: 15,
-      isRange: true,
-      desc: "A package/group of high-quality renders sharing a unified stylistic direction and atmosphere."
+      price: "$12",
+      isRenderGroup: true,
+      desc: "A package/group of high-quality renders sharing a unified stylistic direction and atmosphere. Choose from 3 up to 10 renders."
     },
     models: {
       title: "3D Models",
       price: "$10 - $50",
-      numericPrice: 30,
-      isRange: true,
       isConfigurable: true,
       desc: "Creation of detailed 3D models of any complexity (characters, environment, hard-surface). Choose additional options like Rig and Textures below."
     }
@@ -1011,11 +1071,18 @@
   const detailsPrice = document.getElementById('detailsPrice');
   const detailsDesc = document.getElementById('detailsDesc');
   const selectedServiceInput = document.getElementById('selectedServiceInput');
+  
   const configuratorOptions = document.getElementById('configuratorOptions');
   const addRigCheckbox = document.getElementById('addRig');
   const addTexturesCheckbox = document.getElementById('addTextures');
 
+  const renderGroupOptions = document.getElementById('renderGroupOptions');
+  const decreaseRendersBtn = document.getElementById('decreaseRenders');
+  const increaseRendersBtn = document.getElementById('increaseRenders');
+  const renderCountDisplay = document.getElementById('renderCountDisplay');
+
   let currentSelectedService = null;
+  let currentRenderCount = 3; // Minimum 3 renders
 
   function updatePriceDisplay() {
     if (!currentSelectedService) return;
@@ -1038,6 +1105,11 @@
       
       detailsPrice.innerText = calculatedText;
       selectedServiceInput.value = `${data.title} [Price: ${calculatedText}] ${extrasArr.length > 0 ? '(' + extrasArr.join(', ') + ')' : ''}`;
+    } else if (data.isRenderGroup) {
+      // 3 renders = $12 ($4 each), each extra render adds $4
+      let totalPrice = currentRenderCount * 4;
+      detailsPrice.innerText = `$${totalPrice}`;
+      selectedServiceInput.value = `${data.title} [Quantity: ${currentRenderCount} renders, Price: $${totalPrice}]`;
     } else {
       detailsPrice.innerText = data.price;
       selectedServiceInput.value = `${data.title} [Price: ${data.price}]`;
@@ -1059,10 +1131,17 @@
 
         if (data.isConfigurable) {
           configuratorOptions.classList.add('active');
+          renderGroupOptions.classList.remove('active');
           addRigCheckbox.checked = false;
           addTexturesCheckbox.checked = false;
+        } else if (data.isRenderGroup) {
+          renderGroupOptions.classList.add('active');
+          configuratorOptions.classList.remove('active');
+          currentRenderCount = 3; // Reset to minimum on selection
+          renderCountDisplay.innerText = currentRenderCount;
         } else {
           configuratorOptions.classList.remove('active');
+          renderGroupOptions.classList.remove('active');
         }
 
         updatePriceDisplay();
@@ -1075,6 +1154,22 @@
 
   addRigCheckbox.addEventListener('change', updatePriceDisplay);
   addTexturesCheckbox.addEventListener('change', updatePriceDisplay);
+
+  increaseRendersBtn.addEventListener('click', () => {
+    if (currentRenderCount < 10) {
+      currentRenderCount++;
+      renderCountDisplay.innerText = currentRenderCount;
+      updatePriceDisplay();
+    }
+  });
+
+  decreaseRendersBtn.addEventListener('click', () => {
+    if (currentRenderCount > 3) {
+      currentRenderCount--;
+      renderCountDisplay.innerText = currentRenderCount;
+      updatePriceDisplay();
+    }
+  });
 
   // ===== CUSTOM CURSOR =====
   const cursorDot = document.getElementById('cursorDot');
@@ -1209,6 +1304,7 @@
       } else {
         header.classList.remove('nav-hidden');
       }
+      lastScroll = currentCard = currentScroll; // fixed safely
       lastScroll = currentScroll;
     });
   })();
